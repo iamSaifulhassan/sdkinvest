@@ -25,6 +25,9 @@ class AppColors {
   /// over the dark background.
   static const Color cream = Color(0xfff5f6f8);
 
+  /// Hairline row dividers within cream cards.
+  static const Color creamBorder = Color(0xffe7e9ee);
+
   /// Primary text on the navy background.
   static const Color white = Color(0xffffffff);
 
