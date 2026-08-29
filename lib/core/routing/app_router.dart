@@ -3,6 +3,7 @@ import '../../presentation/pages/home_page.dart';
 import '../../presentation/pages/top5_page.dart';
 import '../../presentation/pages/widget_showcase_page.dart';
 import '../../presentation/pages/placeholder_detail_page.dart';
+import '../../presentation/pages/stock_detail_page.dart';
 import 'app_routes.dart';
 
 class AppRouter {
@@ -18,6 +19,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const WidgetShowcasePage());
       case AppRoutes.placeholderDetail:
         return MaterialPageRoute(builder: (_) => const PlaceholderDetailPage());
+      case AppRoutes.stockDetail:
+        return MaterialPageRoute(builder: (_) => const StockDetailPage());
       default:
         return MaterialPageRoute(builder: (_) => const HomePage());
     }

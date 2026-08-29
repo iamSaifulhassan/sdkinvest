@@ -21,6 +21,7 @@ class Stock extends Equatable {
     required this.sdkScore,
     required this.status,
     required this.confidence,
+    this.tagline,
   });
 
   final String ticker;
@@ -31,6 +32,10 @@ class Stock extends Equatable {
   final StockStatus status;
   final StockConfidence confidence;
 
+  /// Short one-line rationale shown under the row on ranked lists (e.g.
+  /// "Growth + Momentum leaders"). Null where the layout has no room for it.
+  final String? tagline;
+
   @override
-  List<Object?> get props => [ticker, name, sdkScore, status, confidence];
+  List<Object?> get props => [ticker, name, sdkScore, status, confidence, tagline];
 }

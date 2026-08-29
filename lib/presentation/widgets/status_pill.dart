@@ -4,9 +4,13 @@ import '../../core/theme/app_text_styles.dart';
 import '../../data/models/stock.dart';
 
 class StatusPill extends StatelessWidget {
-  const StatusPill({super.key, required this.status});
+  const StatusPill({super.key, required this.status, this.large = false});
 
   final StockStatus status;
+
+  /// Scaled-up variant for headline placements (e.g. the Stock Detail
+  /// SDK Score card) where the default badge size reads too small.
+  final bool large;
 
   Color get _color => switch (status) {
         StockStatus.strongBuy => AppColors.strongBuy,
@@ -28,12 +32,18 @@ class StatusPill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: EdgeInsets.symmetric(horizontal: large ? 14 : 8, vertical: large ? 8 : 4),
       decoration: BoxDecoration(
         color: _isSolid ? _color : _color.withValues(alpha: 0.14),
         borderRadius: BorderRadius.circular(999),
       ),
-      child: Text(_label, style: AppTextStyles.badge.copyWith(color: _isSolid ? Colors.white : _color)),
+      child: Text(
+        _label,
+        style: AppTextStyles.badge.copyWith(
+          color: _isSolid ? Colors.white : _color,
+          fontSize: large ? 14 : 10,
+        ),
+      ),
     );
   }
 }

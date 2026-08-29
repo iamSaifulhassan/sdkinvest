@@ -127,7 +127,7 @@ class _HomeView extends StatelessWidget {
                     onViewAll: () => Navigator.of(context).pushNamed(AppRoutes.top5),
                     child: StockListCard(
                       stocks: state.top5,
-                      onTapStock: (_) => Navigator.of(context).pushNamed(AppRoutes.placeholderDetail),
+                      onTapStock: (_) => Navigator.of(context).pushNamed(AppRoutes.stockDetail),
                     ),
                   ),
                   const SizedBox(height: AppSpacing.lg),

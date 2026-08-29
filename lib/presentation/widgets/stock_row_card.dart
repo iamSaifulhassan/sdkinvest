@@ -18,11 +18,16 @@ class StockRowCard extends StatelessWidget {
     required this.stock,
     this.rank,
     this.onTap,
+    this.showTagline = false,
   });
 
   final Stock stock;
   final int? rank;
   final VoidCallback? onTap;
+
+  /// Show the one-line rationale (e.g. "Growth + Momentum leaders") under
+  /// the status row. Only the full Top 5 ranked list has room for this.
+  final bool showTagline;
 
   static const double _avatarSize = 36;
   double get _leadingWidth => _avatarSize + AppSpacing.sm + (rank != null ? 20 : 0);
@@ -105,6 +110,18 @@ class StockRowCard extends StatelessWidget {
                 Icon(Icons.chevron_right_rounded, size: 15, color: AppColors.inkMuted),
               ],
             ),
+            if (showTagline && stock.tagline != null) ...[
+              const SizedBox(height: 4),
+              Padding(
+                padding: EdgeInsets.only(left: _leadingWidth),
+                child: Text(
+                  stock.tagline!,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: AppColors.inkMuted, fontSize: 11),
+                ),
+              ),
+            ],
           ],
         ),
       ),

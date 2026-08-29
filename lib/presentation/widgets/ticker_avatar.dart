@@ -17,7 +17,20 @@ class TickerAvatar extends StatelessWidget {
     Color(0xff06b6d4),
   ];
 
-  Color get _bg => _palette[ticker.hashCode.abs() % _palette.length];
+  /// Rough brand-color approximations for tickers that show up in the
+  /// mockups, so avatars read closer to the real logos than the generic
+  /// hash-based palette below.
+  static const _brandColors = <String, Color>{
+    'NVDA': Color(0xff76b900),
+    'MU': Color(0xff1c75bc),
+    'MSFT': Color(0xff5e5e5e),
+    'VRT': Color(0xff0a0a0a),
+    'AAPL': Color(0xff555555),
+    'XOM': Color(0xffd0122a),
+    'CVX': Color(0xff0055a4),
+  };
+
+  Color get _bg => _brandColors[ticker] ?? _palette[ticker.hashCode.abs() % _palette.length];
 
   @override
   Widget build(BuildContext context) {

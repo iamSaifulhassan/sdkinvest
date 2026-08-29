@@ -10,11 +10,13 @@ class StockListCard extends StatelessWidget {
     super.key,
     required this.stocks,
     this.showRank = false,
+    this.showTagline = false,
     this.onTapStock,
   });
 
   final List<Stock> stocks;
   final bool showRank;
+  final bool showTagline;
   final ValueChanged<Stock>? onTapStock;
 
   @override
@@ -25,6 +27,7 @@ class StockListCard extends StatelessWidget {
           StockRowCard(
             stock: stocks[i],
             rank: showRank ? i + 1 : null,
+            showTagline: showTagline,
             onTap: onTapStock == null ? null : () => onTapStock!(stocks[i]),
           ),
           if (i != stocks.length - 1) const Divider(height: 1, color: AppColors.creamBorder),
