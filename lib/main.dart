@@ -22,7 +22,7 @@ class SdkInvestApp extends StatelessWidget {
         title: 'SDK Investing',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.dark,
-        initialRoute: AppRoutes.stockDetail,
+        initialRoute: AppRoutes.home,
         onGenerateRoute: AppRouter.onGenerateRoute,
       ),
     );

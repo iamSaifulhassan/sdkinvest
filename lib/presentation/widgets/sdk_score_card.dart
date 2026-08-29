@@ -50,16 +50,15 @@ class SdkScoreCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: AppSpacing.lg),
-          Wrap(
-            spacing: AppSpacing.lg,
-            runSpacing: AppSpacing.sm,
-            crossAxisAlignment: WrapCrossAlignment.center,
+          Row(
             children: [
               _MetaChip(dotColor: AppColors.textMuted, filled: false, label: confidence.label),
+              const SizedBox(width: AppSpacing.xl),
               const _MetaChip(dotColor: AppColors.hold, filled: true, label: 'Low Confidence'),
-              _MetaChip(dotColor: AppColors.accentBlue, filled: true, label: dataCoverageLabel),
             ],
           ),
+          const SizedBox(height: AppSpacing.sm),
+          _MetaChip(dotColor: AppColors.accentBlue, filled: true, label: dataCoverageLabel),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/routing/app_routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../core/theme/app_text_styles.dart';
@@ -53,7 +54,7 @@ class StockDetailPage extends StatelessWidget {
                   Icons.notifications_none_rounded,
                   color: AppColors.textPrimary,
                 ),
-                onPressed: () {},
+                onPressed: () => Navigator.of(context).pushNamed(AppRoutes.alerts),
               ),
               Positioned(
                 right: 10,

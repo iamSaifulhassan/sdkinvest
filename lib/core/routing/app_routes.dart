@@ -6,4 +6,5 @@ class AppRoutes {
   static const String widgetShowcase = '/widget-showcase';
   static const String placeholderDetail = '/placeholder-detail';
   static const String stockDetail = '/stock-detail';
+  static const String alerts = '/alerts';
 }

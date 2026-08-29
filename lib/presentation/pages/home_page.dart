@@ -52,7 +52,10 @@ class _HomeView extends StatelessWidget {
         actions: [
           Stack(
             children: [
-              IconButton(icon: const Icon(Icons.notifications_none_rounded, color: AppColors.textPrimary), onPressed: () {}),
+              IconButton(
+                icon: const Icon(Icons.notifications_none_rounded, color: AppColors.textPrimary),
+                onPressed: () => Navigator.of(context).pushNamed(AppRoutes.alerts),
+              ),
               Positioned(
                 right: 10,
                 top: 10,
