@@ -37,20 +37,17 @@ class _HomeView extends StatelessWidget {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         titleSpacing: AppSpacing.lg,
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('SDK', style: AppTextStyles.wordmark),
-            const SizedBox(width: 6),
-            Flexible(
-              child: Text(
-                'Investing',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
-              ),
-            ),
-          ],
+        title: FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.centerLeft,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('SDK', style: AppTextStyles.wordmark),
+              const SizedBox(width: 6),
+              Text('Investing', style: AppTextStyles.body.copyWith(color: AppColors.textPrimary)),
+            ],
+          ),
         ),
         actions: [
           Stack(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'app_colors.dart';
 import 'app_text_styles.dart';
 
@@ -21,6 +22,10 @@ class AppTheme {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         titleTextStyle: AppTextStyles.title,
+        // Navy header needs light (white) status bar icons/text, not the
+        // platform default dark set — otherwise the clock/signal/battery
+        // are invisible against the background.
+        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       textTheme: TextTheme(
         headlineMedium: AppTextStyles.headline,
