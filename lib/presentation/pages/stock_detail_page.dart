@@ -75,7 +75,7 @@ class StockDetailPage extends StatelessWidget {
               Icons.account_circle_outlined,
               color: AppColors.textPrimary,
             ),
-            onPressed: () {},
+            onPressed: () => Navigator.of(context).pushNamed(AppRoutes.subscription),
           ),
           const SizedBox(width: AppSpacing.xs),
         ],

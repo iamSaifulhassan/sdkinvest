@@ -67,7 +67,10 @@ class _HomeView extends StatelessWidget {
               ),
             ],
           ),
-          IconButton(icon: const Icon(Icons.account_circle_outlined, color: AppColors.textPrimary), onPressed: () {}),
+          IconButton(
+            icon: const Icon(Icons.account_circle_outlined, color: AppColors.textPrimary),
+            onPressed: () => Navigator.of(context).pushNamed(AppRoutes.subscription),
+          ),
           const SizedBox(width: AppSpacing.xs),
         ],
       ),

@@ -8,4 +8,6 @@ class AppRoutes {
   static const String compareStocks = '/compare-stocks';
   static const String portfolio = '/portfolio';
   static const String watchlist = '/watchlist';
+  static const String learn = '/learn';
+  static const String subscription = '/subscription';
 }

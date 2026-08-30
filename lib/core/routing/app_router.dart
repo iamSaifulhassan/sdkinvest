@@ -6,6 +6,8 @@ import '../../presentation/pages/alerts_page.dart';
 import '../../presentation/pages/compare_stocks_page.dart';
 import '../../presentation/pages/portfolio_page.dart';
 import '../../presentation/pages/watchlist_page.dart';
+import '../../presentation/pages/learn_page.dart';
+import '../../presentation/pages/subscription_page.dart';
 import 'app_routes.dart';
 
 class AppRouter {
@@ -27,6 +29,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const PortfolioPage());
       case AppRoutes.watchlist:
         return MaterialPageRoute(builder: (_) => const WatchlistPage());
+      case AppRoutes.learn:
+        return MaterialPageRoute(builder: (_) => const LearnPage());
+      case AppRoutes.subscription:
+        return MaterialPageRoute(builder: (_) => const SubscriptionPage(), fullscreenDialog: true);
       default:
         return MaterialPageRoute(builder: (_) => const HomePage());
     }

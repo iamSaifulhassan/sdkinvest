@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/routing/app_routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../core/theme/app_text_styles.dart';
@@ -107,7 +108,7 @@ class _AlertsPageState extends State<AlertsPage> {
           ),
           IconButton(
             icon: const Icon(Icons.account_circle_outlined, color: AppColors.textPrimary),
-            onPressed: () {},
+            onPressed: () => Navigator.of(context).pushNamed(AppRoutes.subscription),
           ),
           const SizedBox(width: AppSpacing.xs),
         ],
