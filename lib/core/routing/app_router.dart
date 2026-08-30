@@ -9,6 +9,9 @@ import '../../presentation/pages/portfolio/portfolio_page.dart';
 import '../../presentation/pages/watchlist/watchlist_page.dart';
 import '../../presentation/pages/learn/learn_page.dart';
 import '../../presentation/pages/subscription/subscription_page.dart';
+import '../../presentation/pages/onboarding/onboarding_page.dart';
+import '../../presentation/pages/auth/login_page.dart';
+import '../../presentation/pages/auth/signup_page.dart';
 import 'app_routes.dart';
 
 class AppRouter {
@@ -37,6 +40,12 @@ class AppRouter {
           builder: (_) => const SubscriptionPage(),
           fullscreenDialog: true,
         );
+      case AppRoutes.onboarding:
+        return MaterialPageRoute(builder: (_) => const OnboardingPage());
+      case AppRoutes.login:
+        return MaterialPageRoute(builder: (_) => const LoginPage());
+      case AppRoutes.signup:
+        return MaterialPageRoute(builder: (_) => const SignupPage());
       default:
         return MaterialPageRoute(builder: (_) => const HomePage());
     }
