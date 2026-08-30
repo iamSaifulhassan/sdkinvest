@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../data/models/stock.dart';
-import 'status_pill.dart';
-import 'ticker_avatar.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../data/models/stock.dart';
+import '../common/status_pill.dart';
+import '../common/ticker_avatar.dart';
 
 /// Compact card for the "Stocks to Trim / Avoid" section — two sit side by
 /// side, unlike the full-width rows in the main ranked list.
@@ -44,18 +45,29 @@ class TrimStockCard extends StatelessWidget {
                           stock.ticker,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: AppColors.ink, fontSize: 13, fontWeight: FontWeight.w700),
+                          style: TextStyle(
+                            color: AppColors.ink,
+                            fontSize: 13,
+                            fontWeight: FontWeight.w700,
+                          ),
                         ),
                         Text(
                           stock.name,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(color: AppColors.inkMuted, fontSize: 10),
+                          style: TextStyle(
+                            color: AppColors.inkMuted,
+                            fontSize: 10,
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  Icon(Icons.chevron_right_rounded, size: 14, color: AppColors.inkMuted),
+                  Icon(
+                    Icons.chevron_right_rounded,
+                    size: 14,
+                    color: AppColors.inkMuted,
+                  ),
                 ],
               ),
               const SizedBox(height: AppSpacing.xs),
@@ -63,7 +75,14 @@ class TrimStockCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   StatusPill(status: stock.status),
-                  Text('${stock.sdkScore}', style: TextStyle(color: AppColors.ink, fontSize: 13, fontWeight: FontWeight.w700)),
+                  Text(
+                    '${stock.sdkScore}',
+                    style: TextStyle(
+                      color: AppColors.ink,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 2),

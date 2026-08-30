@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../core/theme/app_text_styles.dart';
-import '../../data/models/course.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_text_styles.dart';
+import '../../../data/models/course.dart';
 
 /// One compact tile in the Academy screen's "Quick Lessons" row.
 class QuickLessonTile extends StatelessWidget {
@@ -33,7 +34,11 @@ class QuickLessonTile extends StatelessWidget {
               const SizedBox(height: AppSpacing.xs),
               Text(
                 lesson.title,
-                style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w600, fontSize: 11.5, height: 1.25),
+                style: AppTextStyles.body.copyWith(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 11.5,
+                  height: 1.25,
+                ),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -41,9 +46,16 @@ class QuickLessonTile extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(Icons.play_circle_outline_rounded, size: 12, color: AppColors.textMuted),
+                  Icon(
+                    Icons.play_circle_outline_rounded,
+                    size: 12,
+                    color: AppColors.textMuted,
+                  ),
                   const SizedBox(width: 3),
-                  Text('${lesson.durationMinutes} min', style: AppTextStyles.caption.copyWith(fontSize: 10)),
+                  Text(
+                    '${lesson.durationMinutes} min',
+                    style: AppTextStyles.caption.copyWith(fontSize: 10),
+                  ),
                 ],
               ),
             ],

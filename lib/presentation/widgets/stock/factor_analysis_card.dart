@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../core/theme/app_text_styles.dart';
-import '../../data/models/factor_score.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_text_styles.dart';
+import '../../../data/models/factor_score.dart';
 
 /// "6-Factor Analysis" card: a 3-column grid of bordered tiles, each with a
 /// factor name, score (or "Missing"), and a thin progress bar.
@@ -25,9 +26,16 @@ class FactorAnalysisCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text('6-Factor Analysis', style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w600)),
+              Text(
+                '6-Factor Analysis',
+                style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w600),
+              ),
               const SizedBox(width: 4),
-              Icon(Icons.info_outline_rounded, size: 14, color: AppColors.textMuted),
+              Icon(
+                Icons.info_outline_rounded,
+                size: 14,
+                color: AppColors.textMuted,
+              ),
             ],
           ),
           const SizedBox(height: AppSpacing.md),
@@ -95,7 +103,9 @@ class _FactorTile extends StatelessWidget {
               value: isMissing ? 1.0 : progress,
               minHeight: 4,
               backgroundColor: AppColors.border,
-              valueColor: AlwaysStoppedAnimation(isMissing ? AppColors.border : barColor),
+              valueColor: AlwaysStoppedAnimation(
+                isMissing ? AppColors.border : barColor,
+              ),
             ),
           ),
         ],

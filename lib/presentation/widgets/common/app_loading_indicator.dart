@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
 
 class AppLoadingIndicator extends StatelessWidget {
   const AppLoadingIndicator({super.key, this.size = 24});
@@ -12,7 +13,10 @@ class AppLoadingIndicator extends StatelessWidget {
     return SizedBox(
       width: size,
       height: size,
-      child: const CircularProgressIndicator(strokeWidth: 2.6, color: AppColors.primary),
+      child: const CircularProgressIndicator(
+        strokeWidth: 2.6,
+        color: AppColors.primary,
+      ),
     );
   }
 }
@@ -34,7 +38,8 @@ class AppShimmerBox extends StatefulWidget {
   State<AppShimmerBox> createState() => _AppShimmerBoxState();
 }
 
-class _AppShimmerBoxState extends State<AppShimmerBox> with SingleTickerProviderStateMixin {
+class _AppShimmerBoxState extends State<AppShimmerBox>
+    with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 1200),

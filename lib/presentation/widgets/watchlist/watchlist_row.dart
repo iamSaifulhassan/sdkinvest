@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../core/theme/app_text_styles.dart';
-import '../../data/models/watchlist_item.dart';
-import 'status_pill.dart';
-import 'ticker_avatar.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_text_styles.dart';
+import '../../../data/models/watchlist_item.dart';
+import '../common/status_pill.dart';
+import '../common/ticker_avatar.dart';
 
 /// A single Watchlist row: ticker/name/price on the first line, SDK Score +
 /// status pill + trailing signal (Near Buy zone / Score rising / Low
@@ -17,10 +18,20 @@ class WatchlistRow extends StatelessWidget {
 
   static const double _avatarSize = 36;
 
-  ({Color color, IconData icon}) get _indicatorVisual => switch (item.indicator) {
-        WatchlistIndicator.nearBuyZone => (color: AppColors.strongBuy, icon: Icons.arrow_circle_up_rounded),
-        WatchlistIndicator.scoreRising => (color: AppColors.strongBuy, icon: Icons.arrow_circle_up_rounded),
-        WatchlistIndicator.lowConfidence => (color: AppColors.hold, icon: Icons.remove_circle_outline_rounded),
+  ({Color color, IconData icon}) get _indicatorVisual =>
+      switch (item.indicator) {
+        WatchlistIndicator.nearBuyZone => (
+          color: AppColors.strongBuy,
+          icon: Icons.arrow_circle_up_rounded,
+        ),
+        WatchlistIndicator.scoreRising => (
+          color: AppColors.strongBuy,
+          icon: Icons.arrow_circle_up_rounded,
+        ),
+        WatchlistIndicator.lowConfidence => (
+          color: AppColors.hold,
+          icon: Icons.remove_circle_outline_rounded,
+        ),
       };
 
   @override
@@ -45,7 +56,13 @@ class WatchlistRow extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(item.ticker, style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w700, fontSize: 14)),
+                      Text(
+                        item.ticker,
+                        style: AppTextStyles.body.copyWith(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 14,
+                        ),
+                      ),
                       Text(
                         item.name,
                         style: AppTextStyles.caption.copyWith(fontSize: 11),
@@ -59,10 +76,16 @@ class WatchlistRow extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('\$${item.price.toStringAsFixed(2)}', style: AppTextStyles.figure.copyWith(fontSize: 14)),
+                    Text(
+                      '\$${item.price.toStringAsFixed(2)}',
+                      style: AppTextStyles.figure.copyWith(fontSize: 14),
+                    ),
                     Text(
                       '${item.isPositive ? '+' : ''}${item.change.toStringAsFixed(2)} (${item.changePercent.toStringAsFixed(2)}%)',
-                      style: AppTextStyles.caption.copyWith(fontSize: 10, color: changeColor),
+                      style: AppTextStyles.caption.copyWith(
+                        fontSize: 10,
+                        color: changeColor,
+                      ),
                     ),
                   ],
                 ),
@@ -71,8 +94,14 @@ class WatchlistRow extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('${item.sdkScore}', style: AppTextStyles.figure.copyWith(fontSize: 14)),
-                    Text('SDK Score', style: AppTextStyles.caption.copyWith(fontSize: 8.5)),
+                    Text(
+                      '${item.sdkScore}',
+                      style: AppTextStyles.figure.copyWith(fontSize: 14),
+                    ),
+                    Text(
+                      'SDK Score',
+                      style: AppTextStyles.caption.copyWith(fontSize: 8.5),
+                    ),
                   ],
                 ),
               ],
@@ -86,8 +115,18 @@ class WatchlistRow extends StatelessWidget {
                   const Spacer(),
                   Icon(indicator.icon, size: 13, color: indicator.color),
                   const SizedBox(width: 3),
-                  Text(item.indicator.label, style: AppTextStyles.caption.copyWith(fontSize: 10, color: indicator.color)),
-                  Icon(Icons.chevron_right_rounded, size: 15, color: AppColors.textMuted),
+                  Text(
+                    item.indicator.label,
+                    style: AppTextStyles.caption.copyWith(
+                      fontSize: 10,
+                      color: indicator.color,
+                    ),
+                  ),
+                  Icon(
+                    Icons.chevron_right_rounded,
+                    size: 15,
+                    color: AppColors.textMuted,
+                  ),
                 ],
               ),
             ),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../core/theme/app_text_styles.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_text_styles.dart';
 
 /// "SDK Score History" card: a line chart of past scores with a trailing
 /// range selector (e.g. "6M") and month labels along the x-axis.
@@ -32,12 +33,22 @@ class ScoreHistoryCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('SDK Score History', style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w600)),
+              Text(
+                'SDK Score History',
+                style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w600),
+              ),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(rangeLabel, style: AppTextStyles.caption.copyWith(fontSize: 12)),
-                  Icon(Icons.keyboard_arrow_down_rounded, size: 16, color: AppColors.textMuted),
+                  Text(
+                    rangeLabel,
+                    style: AppTextStyles.caption.copyWith(fontSize: 12),
+                  ),
+                  Icon(
+                    Icons.keyboard_arrow_down_rounded,
+                    size: 16,
+                    color: AppColors.textMuted,
+                  ),
                 ],
               ),
             ],
@@ -51,7 +62,9 @@ class ScoreHistoryCard extends StatelessWidget {
                 const _YAxisLabels(),
                 const SizedBox(width: AppSpacing.xs),
                 Expanded(
-                  child: CustomPaint(painter: _ScoreChartPainter(scores: scores)),
+                  child: CustomPaint(
+                    painter: _ScoreChartPainter(scores: scores),
+                  ),
                 ),
               ],
             ),
@@ -92,7 +105,8 @@ class _YAxisLabels extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          for (final label in labels) Text(label, style: AppTextStyles.caption.copyWith(fontSize: 9)),
+          for (final label in labels)
+            Text(label, style: AppTextStyles.caption.copyWith(fontSize: 9)),
         ],
       ),
     );
@@ -131,7 +145,10 @@ class _ScoreChartPainter extends CustomPainter {
       fillPath,
       Paint()
         ..shader = LinearGradient(
-          colors: [AppColors.gain.withValues(alpha: 0.32), AppColors.gain.withValues(alpha: 0.0)],
+          colors: [
+            AppColors.gain.withValues(alpha: 0.32),
+            AppColors.gain.withValues(alpha: 0.0),
+          ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ).createShader(Offset.zero & size),
@@ -159,7 +176,11 @@ class _ScoreChartPainter extends CustomPainter {
     final painter = TextPainter(
       text: TextSpan(
         text: text,
-        style: const TextStyle(color: AppColors.gain, fontSize: 11, fontWeight: FontWeight.w700),
+        style: const TextStyle(
+          color: AppColors.gain,
+          fontSize: 11,
+          fontWeight: FontWeight.w700,
+        ),
       ),
       textDirection: TextDirection.ltr,
     )..layout();
@@ -167,5 +188,6 @@ class _ScoreChartPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _ScoreChartPainter oldDelegate) => oldDelegate.scores != scores;
+  bool shouldRepaint(covariant _ScoreChartPainter oldDelegate) =>
+      oldDelegate.scores != scores;
 }

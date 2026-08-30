@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../core/theme/app_text_styles.dart';
-import '../../data/models/holding.dart';
-import 'status_pill.dart';
-import 'ticker_avatar.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_text_styles.dart';
+import '../../../data/models/holding.dart';
+import '../common/status_pill.dart';
+import '../common/ticker_avatar.dart';
 
 /// "Holding / Position Value / Weight / SDK Score / Action" data table for
 /// the Portfolio screen.
@@ -15,7 +16,10 @@ class HoldingsTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final headerStyle = AppTextStyles.caption.copyWith(fontSize: 10.5, fontWeight: FontWeight.w700);
+    final headerStyle = AppTextStyles.caption.copyWith(
+      fontSize: 10.5,
+      fontWeight: FontWeight.w700,
+    );
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(AppSpacing.md),
@@ -34,24 +38,45 @@ class HoldingsTable extends StatelessWidget {
         },
         children: [
           TableRow(
-            decoration: BoxDecoration(border: Border(bottom: BorderSide(color: AppColors.border))),
+            decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: AppColors.border)),
+            ),
             children: [
-              Padding(padding: const EdgeInsets.only(bottom: 8), child: Text('Holding', style: headerStyle)),
               Padding(
                 padding: const EdgeInsets.only(bottom: 8),
-                child: Text('Value', textAlign: TextAlign.right, style: headerStyle),
+                child: Text('Holding', style: headerStyle),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 8),
-                child: Text('Weight', textAlign: TextAlign.right, style: headerStyle),
+                child: Text(
+                  'Value',
+                  textAlign: TextAlign.right,
+                  style: headerStyle,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 8),
-                child: Text('Score', textAlign: TextAlign.right, style: headerStyle),
+                child: Text(
+                  'Weight',
+                  textAlign: TextAlign.right,
+                  style: headerStyle,
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 8),
-                child: Text('Action', textAlign: TextAlign.right, style: headerStyle),
+                child: Text(
+                  'Score',
+                  textAlign: TextAlign.right,
+                  style: headerStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Text(
+                  'Action',
+                  textAlign: TextAlign.right,
+                  style: headerStyle,
+                ),
               ),
             ],
           ),
@@ -71,13 +96,18 @@ class HoldingsTable extends StatelessWidget {
                           children: [
                             Text(
                               holding.ticker,
-                              style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w700, fontSize: 12.5),
+                              style: AppTextStyles.body.copyWith(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 12.5,
+                              ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
                             Text(
                               holding.name,
-                              style: AppTextStyles.caption.copyWith(fontSize: 9.5),
+                              style: AppTextStyles.caption.copyWith(
+                                fontSize: 9.5,
+                              ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -92,7 +122,10 @@ class HoldingsTable extends StatelessWidget {
                   child: Text(
                     holding.positionValue,
                     textAlign: TextAlign.right,
-                    style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w600, fontSize: 12),
+                    style: AppTextStyles.body.copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
                 Padding(
@@ -100,7 +133,10 @@ class HoldingsTable extends StatelessWidget {
                   child: Text(
                     '${holding.weightPercent.toStringAsFixed(1)}%',
                     textAlign: TextAlign.right,
-                    style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w600, fontSize: 12),
+                    style: AppTextStyles.body.copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
                 Padding(
@@ -117,7 +153,10 @@ class HoldingsTable extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Align(alignment: Alignment.centerRight, child: StatusPill(status: holding.status)),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: StatusPill(status: holding.status),
+                  ),
                 ),
               ],
             ),

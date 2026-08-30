@@ -1,12 +1,15 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../data/models/stock.dart';
+import '../../data/repositories/stock_repository.dart';
 
 enum Top5Status { loading, loaded }
 
 /// Which section(s) the segmented control is showing.
 enum Top5Filter { all, add, trimSell }
 
-class Top5State {
+class Top5State extends Equatable {
   const Top5State({
     this.status = Top5Status.loading,
     this.filter = Top5Filter.all,
@@ -36,66 +39,31 @@ class Top5State {
       trimStocks: trimStocks ?? this.trimStocks,
     );
   }
+
+  @override
+  List<Object?> get props => [status, filter, topStocks, trimStocks];
 }
 
-/// Drives the Top 5 screen's ranked list. Mock/in-memory data only — no backend.
+/// Drives the Top 5 screen's ranked list. Stock data comes from
+/// [StockRepository] — no backend yet.
 class Top5Cubit extends Cubit<Top5State> {
-  Top5Cubit() : super(const Top5State()) {
+  Top5Cubit({this._repository = const MockStockRepository()})
+    : super(const Top5State()) {
     _load();
   }
+
+  final StockRepository _repository;
 
   Future<void> _load() async {
     await Future<void>.delayed(const Duration(milliseconds: 700));
     if (isClosed) return;
-    emit(state.copyWith(
-      status: Top5Status.loaded,
-      topStocks: const [
-        Stock(
-          ticker: 'NVDA',
-          name: 'NVIDIA Corporation',
-          sdkScore: 90,
-          status: StockStatus.strongBuy,
-          confidence: StockConfidence.provisional,
-          tagline: 'Growth + Momentum leaders',
-        ),
-        Stock(
-          ticker: 'MU',
-          name: 'Micron Technology',
-          sdkScore: 87,
-          status: StockStatus.strongBuy,
-          confidence: StockConfidence.provisional,
-          tagline: 'Improving earnings power',
-        ),
-        Stock(
-          ticker: 'MSFT',
-          name: 'Microsoft Corporation',
-          sdkScore: 84,
-          status: StockStatus.buy,
-          confidence: StockConfidence.limited,
-          tagline: 'Quality + cloud durability',
-        ),
-        Stock(
-          ticker: 'VRT',
-          name: 'Vertiv Holdings Co',
-          sdkScore: 82,
-          status: StockStatus.buy,
-          confidence: StockConfidence.provisional,
-          tagline: 'AI infrastructure demand',
-        ),
-        Stock(
-          ticker: 'AAPL',
-          name: 'Apple Inc.',
-          sdkScore: 76,
-          status: StockStatus.buy,
-          confidence: StockConfidence.limited,
-          tagline: 'Strong cash generation',
-        ),
-      ],
-      trimStocks: const [
-        Stock(ticker: 'XOM', name: 'Exxon Mobil Corporation', sdkScore: 51, status: StockStatus.trim, confidence: StockConfidence.provisional),
-        Stock(ticker: 'CVX', name: 'Chevron Corporation', sdkScore: 53, status: StockStatus.trim, confidence: StockConfidence.provisional),
-      ],
-    ));
+    emit(
+      state.copyWith(
+        status: Top5Status.loaded,
+        topStocks: _repository.topRanked,
+        trimStocks: _repository.trimCandidates,
+      ),
+    );
   }
 
   void setFilter(Top5Filter filter) => emit(state.copyWith(filter: filter));

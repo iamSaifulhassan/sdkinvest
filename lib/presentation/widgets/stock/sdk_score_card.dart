@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../core/theme/app_text_styles.dart';
-import '../../data/models/stock.dart';
-import 'status_pill.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_text_styles.dart';
+import '../../../data/models/stock.dart';
+import '../common/status_pill.dart';
 
 /// Headline SDK Score card: big score number, recommendation pill, and a
 /// row of small meta chips (confidence, data coverage).
@@ -35,16 +36,32 @@ class SdkScoreCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text('SDK Score', style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w600, fontSize: 16)),
+              Text(
+                'SDK Score',
+                style: AppTextStyles.body.copyWith(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
+              ),
               const SizedBox(width: 5),
-              Icon(Icons.info_outline_rounded, size: 16, color: AppColors.textMuted),
+              Icon(
+                Icons.info_outline_rounded,
+                size: 16,
+                color: AppColors.textMuted,
+              ),
             ],
           ),
           const SizedBox(height: AppSpacing.md),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text('$score', style: AppTextStyles.displayFigure.copyWith(fontSize: 68, color: AppColors.strongBuy)),
+              Text(
+                '$score',
+                style: AppTextStyles.displayFigure.copyWith(
+                  fontSize: 68,
+                  color: AppColors.strongBuy,
+                ),
+              ),
               const SizedBox(width: AppSpacing.lg),
               StatusPill(status: status, large: true),
             ],
@@ -58,9 +75,21 @@ class SdkScoreCard extends StatelessWidget {
               spacing: AppSpacing.md,
               runSpacing: 6,
               children: [
-                _MetaChip(dotColor: AppColors.textMuted, filled: false, label: confidence.label),
-                const _MetaChip(dotColor: AppColors.hold, filled: true, label: 'Low Confidence'),
-                _MetaChip(dotColor: AppColors.accentBlue, filled: true, label: dataCoverageLabel),
+                _MetaChip(
+                  dotColor: AppColors.textMuted,
+                  filled: false,
+                  label: confidence.label,
+                ),
+                const _MetaChip(
+                  dotColor: AppColors.hold,
+                  filled: true,
+                  label: 'Low Confidence',
+                ),
+                _MetaChip(
+                  dotColor: AppColors.accentBlue,
+                  filled: true,
+                  label: dataCoverageLabel,
+                ),
               ],
             ),
           ),
@@ -71,7 +100,11 @@ class SdkScoreCard extends StatelessWidget {
 }
 
 class _MetaChip extends StatelessWidget {
-  const _MetaChip({required this.dotColor, required this.filled, required this.label});
+  const _MetaChip({
+    required this.dotColor,
+    required this.filled,
+    required this.label,
+  });
 
   final Color dotColor;
   final bool filled;

@@ -7,12 +7,12 @@ import '../../core/theme/app_text_styles.dart';
 import '../../data/models/factor_score.dart';
 import '../../data/models/score_insight.dart';
 import '../../data/models/stock.dart';
-import '../widgets/app_bottom_nav.dart';
-import '../widgets/factor_analysis_card.dart';
-import '../widgets/score_history_card.dart';
-import '../widgets/score_insights_card.dart';
-import '../widgets/sdk_score_card.dart';
-import '../widgets/ticker_avatar.dart';
+import '../widgets/common/app_bottom_nav.dart';
+import '../widgets/stock/factor_analysis_card.dart';
+import '../widgets/stock/score_history_card.dart';
+import '../widgets/stock/score_insights_card.dart';
+import '../widgets/stock/sdk_score_card.dart';
+import '../widgets/common/ticker_avatar.dart';
 
 /// Stock detail screen — SDK Score, 6-factor breakdown, score history chart,
 /// and the reasoning (and missing data) behind the score. Currently backed
@@ -54,7 +54,8 @@ class StockDetailPage extends StatelessWidget {
                   Icons.notifications_none_rounded,
                   color: AppColors.textPrimary,
                 ),
-                onPressed: () => Navigator.of(context).pushNamed(AppRoutes.alerts),
+                onPressed: () =>
+                    Navigator.of(context).pushNamed(AppRoutes.alerts),
               ),
               Positioned(
                 right: 10,
@@ -75,7 +76,8 @@ class StockDetailPage extends StatelessWidget {
               Icons.account_circle_outlined,
               color: AppColors.textPrimary,
             ),
-            onPressed: () => Navigator.of(context).pushNamed(AppRoutes.subscription),
+            onPressed: () =>
+                Navigator.of(context).pushNamed(AppRoutes.subscription),
           ),
           const SizedBox(width: AppSpacing.xs),
         ],
@@ -146,49 +148,50 @@ class StockDetailPage extends StatelessWidget {
             const SizedBox(height: AppSpacing.lg),
             IntrinsicHeight(
               child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                const Expanded(
-                  child: ScoreInsightsCard(
-                    title: 'Why this score?',
-                    insights: [
-                      ScoreInsight(
-                        title: 'Strong revenue and EPS growth',
-                        detail: 'Consistent double-digit growth across key metrics.',
-                      ),
-                      ScoreInsight(
-                        title: 'Strong momentum',
-                        detail: 'Price and relative strength trending up.',
-                      ),
-                      ScoreInsight(
-                        title: 'Healthy profitability',
-                        detail: 'High ROE and strong margins vs. sector peers.',
-                      ),
-                    ],
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Expanded(
+                    child: ScoreInsightsCard(
+                      title: 'Why this score?',
+                      insights: [
+                        ScoreInsight(
+                          title: 'Strong revenue and EPS growth',
+                          detail: 'Consistent double-digit growth across key metrics.',
+                        ),
+                        ScoreInsight(
+                          title: 'Strong momentum',
+                          detail: 'Price and relative strength trending up.',
+                        ),
+                        ScoreInsight(
+                          title: 'Healthy profitability',
+                          detail:
+                              'High ROE and strong margins vs. sector peers.',
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(width: AppSpacing.sm),
-                const Expanded(
-                  child: ScoreInsightsCard(
-                    title: 'Material Missing Factors',
-                    isWarning: true,
-                    insights: [
-                      ScoreInsight(
-                        title: 'Valuation',
-                        detail:
-                            'Insufficient valuation data limits confidence.',
-                        icon: Icons.balance_rounded,
-                      ),
-                      ScoreInsight(
-                        title: 'Earnings Quality',
-                        detail:
-                            'Not enough quality and accruals data available.',
-                        icon: Icons.bar_chart_rounded,
-                      ),
-                    ],
+                  const SizedBox(width: AppSpacing.sm),
+                  const Expanded(
+                    child: ScoreInsightsCard(
+                      title: 'Material Missing Factors',
+                      isWarning: true,
+                      insights: [
+                        ScoreInsight(
+                          title: 'Valuation',
+                          detail:
+                              'Insufficient valuation data limits confidence.',
+                          icon: Icons.balance_rounded,
+                        ),
+                        ScoreInsight(
+                          title: 'Earnings Quality',
+                          detail:
+                              'Not enough quality and accruals data available.',
+                          icon: Icons.bar_chart_rounded,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
               ),
             ),
           ],

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../data/models/stock.dart';
-import 'status_pill.dart';
-import 'ticker_avatar.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../data/models/stock.dart';
+import '../common/status_pill.dart';
+import '../common/ticker_avatar.dart';
 
 /// A single stock row (logo, ticker/name, SDK Score, status pill, confidence
 /// tag) meant to sit inside a light cream card — e.g. Home's "Today's Top 5"
@@ -30,7 +31,8 @@ class StockRowCard extends StatelessWidget {
   final bool showTagline;
 
   static const double _avatarSize = 36;
-  double get _leadingWidth => _avatarSize + AppSpacing.sm + (rank != null ? 20 : 0);
+  double get _leadingWidth =>
+      _avatarSize + AppSpacing.sm + (rank != null ? 20 : 0);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,11 @@ class StockRowCard extends StatelessWidget {
                     width: 16,
                     child: Text(
                       '$rank',
-                      style: TextStyle(color: AppColors.inkMuted, fontSize: 12, fontWeight: FontWeight.w700),
+                      style: TextStyle(
+                        color: AppColors.inkMuted,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                   const SizedBox(width: AppSpacing.xs),
@@ -65,13 +71,20 @@ class StockRowCard extends StatelessWidget {
                         stock.ticker,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: AppColors.ink, fontSize: 14, fontWeight: FontWeight.w700),
+                        style: TextStyle(
+                          color: AppColors.ink,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
                       Text(
                         stock.name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: AppColors.inkMuted, fontSize: 11),
+                        style: TextStyle(
+                          color: AppColors.inkMuted,
+                          fontSize: 11,
+                        ),
                       ),
                     ],
                   ),
@@ -90,7 +103,10 @@ class StockRowCard extends StatelessWidget {
                         fontFeatures: const [FontFeature.tabularFigures()],
                       ),
                     ),
-                    Text('SDK Score', style: TextStyle(color: AppColors.inkMuted, fontSize: 9)),
+                    Text(
+                      'SDK Score',
+                      style: TextStyle(color: AppColors.inkMuted, fontSize: 9),
+                    ),
                   ],
                 ),
               ],
@@ -107,7 +123,11 @@ class StockRowCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(color: AppColors.inkMuted, fontSize: 9),
                 ),
-                Icon(Icons.chevron_right_rounded, size: 15, color: AppColors.inkMuted),
+                Icon(
+                  Icons.chevron_right_rounded,
+                  size: 15,
+                  color: AppColors.inkMuted,
+                ),
               ],
             ),
             if (showTagline && stock.tagline != null) ...[

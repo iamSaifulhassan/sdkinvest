@@ -20,5 +20,12 @@ class HomeActionItem extends Equatable {
   final String timeAgo;
 
   @override
-  List<Object?> get props => [icon, accentColor, title, detail, subtitle, timeAgo];
+  List<Object?> get props => [
+    icon,
+    accentColor,
+    title,
+    detail,
+    subtitle,
+    timeAgo,
+  ];
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../presentation/pages/home_page.dart';
 import '../../presentation/pages/top5_page.dart';
 import '../../presentation/pages/stock_detail_page.dart';
@@ -32,7 +33,10 @@ class AppRouter {
       case AppRoutes.learn:
         return MaterialPageRoute(builder: (_) => const LearnPage());
       case AppRoutes.subscription:
-        return MaterialPageRoute(builder: (_) => const SubscriptionPage(), fullscreenDialog: true);
+        return MaterialPageRoute(
+          builder: (_) => const SubscriptionPage(),
+          fullscreenDialog: true,
+        );
       default:
         return MaterialPageRoute(builder: (_) => const HomePage());
     }

@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+
 import 'stock.dart';
 
 /// Which segment of the Alerts & Signals filter bar an alert belongs to.
@@ -36,5 +37,15 @@ class AlertItem extends Equatable {
   final StockStatus? status;
 
   @override
-  List<Object?> get props => [category, ticker, companyName, title, reason, timeAgo, icon, iconColor, status];
+  List<Object?> get props => [
+    category,
+    ticker,
+    companyName,
+    title,
+    reason,
+    timeAgo,
+    icon,
+    iconColor,
+    status,
+  ];
 }

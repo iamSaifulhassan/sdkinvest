@@ -5,13 +5,13 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../logic/portfolio/portfolio_cubit.dart';
-import '../widgets/allocation_donut_card.dart';
-import '../widgets/app_bottom_nav.dart';
-import '../widgets/app_shimmer_list.dart';
-import '../widgets/holdings_table.dart';
-import '../widgets/portfolio_hero_card.dart';
-import '../widgets/rebalancing_insight_card.dart';
-import '../widgets/stat_tile.dart';
+import '../widgets/portfolio/allocation_donut_card.dart';
+import '../widgets/common/app_bottom_nav.dart';
+import '../widgets/common/app_shimmer_list.dart';
+import '../widgets/portfolio/holdings_table.dart';
+import '../widgets/common/portfolio_hero_card.dart';
+import '../widgets/portfolio/rebalancing_insight_card.dart';
+import '../widgets/common/stat_tile.dart';
 
 /// Portfolio screen — total value + return, allocation breakdown, full
 /// holdings table, and a rebalancing suggestion.
@@ -39,10 +39,25 @@ class _PortfolioView extends StatelessWidget {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         titleSpacing: AppSpacing.lg,
-        title: Text('Portfolio', style: AppTextStyles.headline.copyWith(fontSize: 22)),
+        title: Text(
+          'Portfolio',
+          style: AppTextStyles.headline.copyWith(fontSize: 22),
+        ),
         actions: [
-          IconButton(icon: const Icon(Icons.add_circle_outline_rounded, color: AppColors.textPrimary), onPressed: () {}),
-          IconButton(icon: const Icon(Icons.settings_outlined, color: AppColors.textPrimary), onPressed: () {}),
+          IconButton(
+            icon: const Icon(
+              Icons.add_circle_outline_rounded,
+              color: AppColors.textPrimary,
+            ),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.settings_outlined,
+              color: AppColors.textPrimary,
+            ),
+            onPressed: () {},
+          ),
           const SizedBox(width: AppSpacing.xs),
         ],
       ),
@@ -59,7 +74,12 @@ class _PortfolioView extends StatelessWidget {
             return RefreshIndicator(
               onRefresh: context.read<PortfolioCubit>().refresh,
               child: ListView(
-                padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.sm, AppSpacing.lg, AppSpacing.xxl),
+                padding: const EdgeInsets.fromLTRB(
+                  AppSpacing.lg,
+                  AppSpacing.sm,
+                  AppSpacing.lg,
+                  AppSpacing.xxl,
+                ),
                 children: [
                   PortfolioHeroCard(
                     portfolioValue: state.portfolioValue,

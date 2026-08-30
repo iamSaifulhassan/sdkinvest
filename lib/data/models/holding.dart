@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+
 import 'stock.dart';
 
 /// One position in the Portfolio screen's holdings table.
@@ -25,5 +26,12 @@ class Holding extends Equatable {
   final StockStatus status;
 
   @override
-  List<Object?> get props => [ticker, name, positionValue, weightPercent, sdkScore, status];
+  List<Object?> get props => [
+    ticker,
+    name,
+    positionValue,
+    weightPercent,
+    sdkScore,
+    status,
+  ];
 }

@@ -33,6 +33,14 @@ class SubscriptionPlan extends Equatable {
   final String? savingsNote;
 
   @override
-  List<Object?> get props =>
-      [name, monthlyPrice, annualPrice, billingNote, features, badgeLabel, highlighted, savingsNote];
+  List<Object?> get props => [
+    name,
+    monthlyPrice,
+    annualPrice,
+    billingNote,
+    features,
+    badgeLabel,
+    highlighted,
+    savingsNote,
+  ];
 }

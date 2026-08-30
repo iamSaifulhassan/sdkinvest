@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../core/routing/app_routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../logic/home/home_cubit.dart';
-import '../../logic/home/home_state.dart';
-import '../widgets/action_item_tile.dart';
-import '../widgets/app_bottom_nav.dart';
-import '../widgets/app_loading_indicator.dart';
-import '../widgets/cream_section_card.dart';
-import '../widgets/portfolio_hero_card.dart';
-import '../widgets/stat_tile.dart';
-import '../widgets/stock_list_card.dart';
+import '../widgets/home/action_item_tile.dart';
+import '../widgets/common/app_bottom_nav.dart';
+import '../widgets/common/app_loading_indicator.dart';
+import '../widgets/home/cream_section_card.dart';
+import '../widgets/common/portfolio_hero_card.dart';
+import '../widgets/common/stat_tile.dart';
+import '../widgets/stock/stock_list_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => HomeCubit(),
-      child: const _HomeView(),
-    );
+    return BlocProvider(create: (_) => HomeCubit(), child: const _HomeView());
   }
 }
 
@@ -45,7 +42,12 @@ class _HomeView extends StatelessWidget {
             children: [
               Text('SDK', style: AppTextStyles.wordmark),
               const SizedBox(width: 6),
-              Text('Investing', style: AppTextStyles.body.copyWith(color: AppColors.textPrimary)),
+              Text(
+                'Investing',
+                style: AppTextStyles.body.copyWith(
+                  color: AppColors.textPrimary,
+                ),
+              ),
             ],
           ),
         ),
@@ -53,8 +55,12 @@ class _HomeView extends StatelessWidget {
           Stack(
             children: [
               IconButton(
-                icon: const Icon(Icons.notifications_none_rounded, color: AppColors.textPrimary),
-                onPressed: () => Navigator.of(context).pushNamed(AppRoutes.alerts),
+                icon: const Icon(
+                  Icons.notifications_none_rounded,
+                  color: AppColors.textPrimary,
+                ),
+                onPressed: () =>
+                    Navigator.of(context).pushNamed(AppRoutes.alerts),
               ),
               Positioned(
                 right: 10,
@@ -62,14 +68,21 @@ class _HomeView extends StatelessWidget {
                 child: Container(
                   width: 8,
                   height: 8,
-                  decoration: const BoxDecoration(color: AppColors.trim, shape: BoxShape.circle),
+                  decoration: const BoxDecoration(
+                    color: AppColors.trim,
+                    shape: BoxShape.circle,
+                  ),
                 ),
               ),
             ],
           ),
           IconButton(
-            icon: const Icon(Icons.account_circle_outlined, color: AppColors.textPrimary),
-            onPressed: () => Navigator.of(context).pushNamed(AppRoutes.subscription),
+            icon: const Icon(
+              Icons.account_circle_outlined,
+              color: AppColors.textPrimary,
+            ),
+            onPressed: () =>
+                Navigator.of(context).pushNamed(AppRoutes.subscription),
           ),
           const SizedBox(width: AppSpacing.xs),
         ],
@@ -82,11 +95,19 @@ class _HomeView extends StatelessWidget {
               return const Center(child: AppLoadingIndicator());
             }
             return SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.sm, AppSpacing.lg, AppSpacing.xxl),
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.lg,
+                AppSpacing.sm,
+                AppSpacing.lg,
+                AppSpacing.xxl,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Good morning, ${state.userName}', style: AppTextStyles.title),
+                  Text(
+                    'Good morning, ${state.userName}',
+                    style: AppTextStyles.title,
+                  ),
                   const SizedBox(height: AppSpacing.lg),
                   PortfolioHeroCard(
                     portfolioValue: state.portfolioValue,
@@ -130,10 +151,13 @@ class _HomeView extends StatelessWidget {
                   const SizedBox(height: AppSpacing.lg),
                   CreamSectionCard(
                     title: "Today's Top 5",
-                    onViewAll: () => Navigator.of(context).pushNamed(AppRoutes.top5),
+                    onViewAll: () =>
+                        Navigator.of(context).pushNamed(AppRoutes.top5),
                     child: StockListCard(
                       stocks: state.top5,
-                      onTapStock: (_) => Navigator.of(context).pushNamed(AppRoutes.stockDetail),
+                      onTapStock: (_) =>
+                          Navigator.of(context)
+                              .pushNamed(AppRoutes.stockDetail),
                     ),
                   ),
                   const SizedBox(height: AppSpacing.lg),
@@ -145,7 +169,9 @@ class _HomeView extends StatelessWidget {
                       children: [
                         for (var i = 0; i < state.actionItems.length; i++) ...[
                           if (i != 0) const SizedBox(width: AppSpacing.sm),
-                          Expanded(child: ActionItemTile(item: state.actionItems[i])),
+                          Expanded(
+                            child: ActionItemTile(item: state.actionItems[i]),
+                          ),
                         ],
                       ],
                     ),

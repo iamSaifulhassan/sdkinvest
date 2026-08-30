@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/theme/app_colors.dart';
@@ -7,7 +8,7 @@ import '../../data/models/stock.dart';
 
 enum PortfolioStatus { loading, loaded }
 
-class PortfolioState {
+class PortfolioState extends Equatable {
   const PortfolioState({
     this.status = PortfolioStatus.loading,
     this.portfolioValue = '',
@@ -73,6 +74,24 @@ class PortfolioState {
       rebalancingInsight: rebalancingInsight ?? this.rebalancingInsight,
     );
   }
+
+  @override
+  List<Object?> get props => [
+    status,
+    portfolioValue,
+    dayGainLabel,
+    totalReturnLabel,
+    isPositive,
+    chartPoints,
+    yAxisLabels,
+    xAxisLabels,
+    holdingsCount,
+    cashPercentLabel,
+    avgSdkScore,
+    allocation,
+    holdings,
+    rebalancingInsight,
+  ];
 }
 
 /// Drives the Portfolio screen. Mock/in-memory data only — no backend.
@@ -84,69 +103,100 @@ class PortfolioCubit extends Cubit<PortfolioState> {
   Future<void> _load() async {
     await Future<void>.delayed(const Duration(milliseconds: 600));
     if (isClosed) return;
-    emit(state.copyWith(
-      status: PortfolioStatus.loaded,
-      portfolioValue: '\$12.84M',
-      dayGainLabel: '+\$184,240 (1.46%)',
-      totalReturnLabel: '+18.6% YTD',
-      isPositive: true,
-      chartPoints: const [0.20, 0.28, 0.24, 0.38, 0.34, 0.50, 0.58, 0.52, 0.72, 0.80, 0.90, 1.0],
-      yAxisLabels: const ['13.0M', '12.0M', '11.0M', '10.0M'],
-      xAxisLabels: const ["'19", "'20", "'21", "'22", "'23"],
-      holdingsCount: 18,
-      cashPercentLabel: '4.2%',
-      avgSdkScore: 78,
-      allocation: const [
-        AllocationSlice(label: 'Berkshire', percent: 38, color: AppColors.accentBlue),
-        AllocationSlice(label: 'Semis', percent: 26, color: AppColors.accentCyan),
-        AllocationSlice(label: 'Tech', percent: 20, color: AppColors.strongBuy),
-        AllocationSlice(label: 'Energy', percent: 10, color: AppColors.hold),
-        AllocationSlice(label: 'Other', percent: 6, color: AppColors.accentPurple),
-      ],
-      holdings: const [
-        Holding(
-          ticker: 'BRK.B',
-          name: 'Berkshire Hathaway',
-          positionValue: '\$4.87M',
-          weightPercent: 38.0,
-          sdkScore: 85,
-          status: StockStatus.hold,
-        ),
-        Holding(
-          ticker: 'NVDA',
-          name: 'NVIDIA Corporation',
-          positionValue: '\$2.31M',
-          weightPercent: 18.0,
-          sdkScore: 90,
-          status: StockStatus.strongBuy,
-        ),
-        Holding(
-          ticker: 'MU',
-          name: 'Micron Technology',
-          positionValue: '\$1.67M',
-          weightPercent: 13.0,
-          sdkScore: 87,
-          status: StockStatus.strongBuy,
-        ),
-        Holding(
-          ticker: 'MSFT',
-          name: 'Microsoft Corporation',
-          positionValue: '\$1.28M',
-          weightPercent: 10.0,
-          sdkScore: 84,
-          status: StockStatus.buy,
-        ),
-        Holding(
-          ticker: 'XOM',
-          name: 'Exxon Mobil Corporation',
-          positionValue: '\$0.77M',
-          weightPercent: 6.0,
-          sdkScore: 51,
-          status: StockStatus.trim,
-        ),
-      ],
-      rebalancingInsight: 'Consider trimming XOM and adding to MU.',
-    ));
+    emit(
+      state.copyWith(
+        status: PortfolioStatus.loaded,
+        portfolioValue: '\$12.84M',
+        dayGainLabel: '+\$184,240 (1.46%)',
+        totalReturnLabel: '+18.6% YTD',
+        isPositive: true,
+        chartPoints: const [
+          0.20,
+          0.28,
+          0.24,
+          0.38,
+          0.34,
+          0.50,
+          0.58,
+          0.52,
+          0.72,
+          0.80,
+          0.90,
+          1.0,
+        ],
+        yAxisLabels: const ['13.0M', '12.0M', '11.0M', '10.0M'],
+        xAxisLabels: const ["'19", "'20", "'21", "'22", "'23"],
+        holdingsCount: 18,
+        cashPercentLabel: '4.2%',
+        avgSdkScore: 78,
+        allocation: const [
+          AllocationSlice(
+            label: 'Berkshire',
+            percent: 38,
+            color: AppColors.accentBlue,
+          ),
+          AllocationSlice(
+            label: 'Semis',
+            percent: 26,
+            color: AppColors.accentCyan,
+          ),
+          AllocationSlice(
+            label: 'Tech',
+            percent: 20,
+            color: AppColors.strongBuy,
+          ),
+          AllocationSlice(label: 'Energy', percent: 10, color: AppColors.hold),
+          AllocationSlice(
+            label: 'Other',
+            percent: 6,
+            color: AppColors.accentPurple,
+          ),
+        ],
+        holdings: const [
+          Holding(
+            ticker: 'BRK.B',
+            name: 'Berkshire Hathaway',
+            positionValue: '\$4.87M',
+            weightPercent: 38.0,
+            sdkScore: 85,
+            status: StockStatus.hold,
+          ),
+          Holding(
+            ticker: 'NVDA',
+            name: 'NVIDIA Corporation',
+            positionValue: '\$2.31M',
+            weightPercent: 18.0,
+            sdkScore: 90,
+            status: StockStatus.strongBuy,
+          ),
+          Holding(
+            ticker: 'MU',
+            name: 'Micron Technology',
+            positionValue: '\$1.67M',
+            weightPercent: 13.0,
+            sdkScore: 87,
+            status: StockStatus.strongBuy,
+          ),
+          Holding(
+            ticker: 'MSFT',
+            name: 'Microsoft Corporation',
+            positionValue: '\$1.28M',
+            weightPercent: 10.0,
+            sdkScore: 84,
+            status: StockStatus.buy,
+          ),
+          Holding(
+            ticker: 'XOM',
+            name: 'Exxon Mobil Corporation',
+            positionValue: '\$0.77M',
+            weightPercent: 6.0,
+            sdkScore: 51,
+            status: StockStatus.trim,
+          ),
+        ],
+        rebalancingInsight: 'Consider trimming XOM and adding to MU.',
+      ),
+    );
   }
 
   Future<void> refresh() async {

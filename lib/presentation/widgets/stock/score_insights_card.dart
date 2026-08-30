@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../core/theme/app_text_styles.dart';
-import '../../data/models/score_insight.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_text_styles.dart';
+import '../../../data/models/score_insight.dart';
 
 /// Card of bulleted insights — used for both "Why this score?" (positive,
 /// green check) and "Material Missing Factors" (warning, amber icon).
@@ -23,7 +24,9 @@ class ScoreInsightsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final accentColor = isWarning ? AppColors.hold : AppColors.strongBuy;
-    final leadingIcon = icon ?? (isWarning ? Icons.warning_amber_rounded : Icons.check_circle_rounded);
+    final leadingIcon =
+        icon ??
+        (isWarning ? Icons.warning_amber_rounded : Icons.check_circle_rounded);
 
     return Container(
       width: double.infinity,
@@ -42,13 +45,20 @@ class ScoreInsightsCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w600, fontSize: 12.5),
+                  style: AppTextStyles.body.copyWith(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 12.5,
+                  ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
               const SizedBox(width: 4),
-              Icon(Icons.info_outline_rounded, size: 13, color: AppColors.textMuted),
+              Icon(
+                Icons.info_outline_rounded,
+                size: 13,
+                color: AppColors.textMuted,
+              ),
             ],
           ),
           const SizedBox(height: AppSpacing.md),
@@ -107,9 +117,18 @@ class _InsightRow extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(insight.title, style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w600, fontSize: 12)),
+              Text(
+                insight.title,
+                style: AppTextStyles.body.copyWith(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 12,
+                ),
+              ),
               const SizedBox(height: 2),
-              Text(insight.detail, style: AppTextStyles.caption.copyWith(fontSize: 10.5)),
+              Text(
+                insight.detail,
+                style: AppTextStyles.caption.copyWith(fontSize: 10.5),
+              ),
             ],
           ),
         ),

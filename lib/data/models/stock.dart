@@ -8,10 +8,10 @@ enum StockConfidence { provisional, limited, verified }
 
 extension StockConfidenceLabel on StockConfidence {
   String get label => switch (this) {
-        StockConfidence.provisional => 'Provisional',
-        StockConfidence.limited => 'Limited',
-        StockConfidence.verified => 'Verified',
-      };
+    StockConfidence.provisional => 'Provisional',
+    StockConfidence.limited => 'Limited',
+    StockConfidence.verified => 'Verified',
+  };
 }
 
 class Stock extends Equatable {
@@ -37,5 +37,12 @@ class Stock extends Equatable {
   final String? tagline;
 
   @override
-  List<Object?> get props => [ticker, name, sdkScore, status, confidence, tagline];
+  List<Object?> get props => [
+    ticker,
+    name,
+    sdkScore,
+    status,
+    confidence,
+    tagline,
+  ];
 }

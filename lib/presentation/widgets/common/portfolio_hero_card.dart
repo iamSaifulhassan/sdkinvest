@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../core/theme/app_text_styles.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_text_styles.dart';
 
 /// Portfolio value hero card with an intraday chart, shown at the top of Home.
 class PortfolioHeroCard extends StatelessWidget {
@@ -39,7 +40,12 @@ class PortfolioHeroCard extends StatelessWidget {
     final lineColor = isPositive ? AppColors.gain : AppColors.loss;
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.lg, AppSpacing.lg, AppSpacing.md),
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.lg,
+        AppSpacing.lg,
+        AppSpacing.lg,
+        AppSpacing.md,
+      ),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
@@ -52,7 +58,11 @@ class PortfolioHeroCard extends StatelessWidget {
             children: [
               Text('Total Portfolio Value', style: AppTextStyles.caption),
               const SizedBox(width: 4),
-              Icon(Icons.info_outline_rounded, size: 12, color: AppColors.textMuted),
+              Icon(
+                Icons.info_outline_rounded,
+                size: 12,
+                color: AppColors.textMuted,
+              ),
             ],
           ),
           const SizedBox(height: 4),
@@ -67,7 +77,13 @@ class PortfolioHeroCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(changeCaption, style: AppTextStyles.caption),
-                    Text(changeLabel, style: AppTextStyles.body.copyWith(color: lineColor, fontWeight: FontWeight.w600)),
+                    Text(
+                      changeLabel,
+                      style: AppTextStyles.body.copyWith(
+                        color: lineColor,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -80,7 +96,10 @@ class PortfolioHeroCard extends StatelessWidget {
                       Text(secondaryCaption!, style: AppTextStyles.caption),
                       Text(
                         secondaryValue!,
-                        style: AppTextStyles.body.copyWith(color: AppColors.textPrimary, fontWeight: FontWeight.w600),
+                        style: AppTextStyles.body.copyWith(
+                          color: AppColors.textPrimary,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ],
                   ),
@@ -93,14 +112,25 @@ class PortfolioHeroCard extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(child: CustomPaint(painter: _PortfolioChartPainter(points: chartPoints, lineColor: lineColor))),
+                Expanded(
+                  child: CustomPaint(
+                    painter: _PortfolioChartPainter(
+                      points: chartPoints,
+                      lineColor: lineColor,
+                    ),
+                  ),
+                ),
                 if (yAxisLabels.isNotEmpty) ...[
                   const SizedBox(width: AppSpacing.xs),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      for (final label in yAxisLabels) Text(label, style: AppTextStyles.caption.copyWith(fontSize: 10)),
+                      for (final label in yAxisLabels)
+                        Text(
+                          label,
+                          style: AppTextStyles.caption.copyWith(fontSize: 10),
+                        ),
                     ],
                   ),
                 ],
@@ -162,7 +192,10 @@ class _PortfolioChartPainter extends CustomPainter {
       fillPath,
       Paint()
         ..shader = LinearGradient(
-          colors: [lineColor.withValues(alpha: 0.35), lineColor.withValues(alpha: 0.0)],
+          colors: [
+            lineColor.withValues(alpha: 0.35),
+            lineColor.withValues(alpha: 0.0),
+          ],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
         ).createShader(Offset.zero & size),

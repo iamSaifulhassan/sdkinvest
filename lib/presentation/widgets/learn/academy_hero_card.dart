@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../core/theme/app_text_styles.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_text_styles.dart';
 
 /// "Master the SDK System" hero card at the top of the Academy screen: a
 /// headline, a progress bar, and a small ascending Sell/Trim/Hold/Buy
@@ -26,7 +27,10 @@ class AcademyHeroCard extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [AppColors.surface, AppColors.strongBuy.withValues(alpha: 0.18)],
+          colors: [
+            AppColors.surface,
+            AppColors.strongBuy.withValues(alpha: 0.18),
+          ],
         ),
         borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
         border: Border.all(color: AppColors.border),
@@ -39,8 +43,20 @@ class AcademyHeroCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('Master the', style: AppTextStyles.title.copyWith(fontSize: 20, fontWeight: FontWeight.w700)),
-                Text('SDK System', style: AppTextStyles.title.copyWith(fontSize: 20, fontWeight: FontWeight.w700)),
+                Text(
+                  'Master the',
+                  style: AppTextStyles.title.copyWith(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+                Text(
+                  'SDK System',
+                  style: AppTextStyles.title.copyWith(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
                 const SizedBox(height: AppSpacing.xs),
                 Text(
                   'Learn when to Buy, Hold, Trim, and Sell.',
@@ -49,7 +65,11 @@ class AcademyHeroCard extends StatelessWidget {
                 const SizedBox(height: AppSpacing.md),
                 Text(
                   '$progressPercent% complete',
-                  style: AppTextStyles.body.copyWith(color: AppColors.strongBuy, fontWeight: FontWeight.w700, fontSize: 12.5),
+                  style: AppTextStyles.body.copyWith(
+                    color: AppColors.strongBuy,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 12.5,
+                  ),
                 ),
                 const SizedBox(height: 6),
                 ClipRRect(
@@ -58,7 +78,9 @@ class AcademyHeroCard extends StatelessWidget {
                     value: progressPercent / 100,
                     minHeight: 6,
                     backgroundColor: AppColors.border,
-                    valueColor: const AlwaysStoppedAnimation(AppColors.strongBuy),
+                    valueColor: const AlwaysStoppedAnimation(
+                      AppColors.strongBuy,
+                    ),
                   ),
                 ),
               ],
@@ -84,7 +106,12 @@ class AcademyHeroCard extends StatelessWidget {
                       quarterTurns: 3,
                       child: Text(
                         step.label,
-                        style: const TextStyle(color: Colors.white, fontSize: 7, fontWeight: FontWeight.w800, letterSpacing: 0.3),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 7,
+                          fontWeight: FontWeight.w800,
+                          letterSpacing: 0.3,
+                        ),
                       ),
                     ),
                   ),

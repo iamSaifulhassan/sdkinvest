@@ -1,91 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../core/routing/app_routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../data/models/alert_item.dart';
-import '../../data/models/stock.dart';
-import '../widgets/alert_card.dart';
-import '../widgets/alert_summary_tile.dart';
-import '../widgets/app_bottom_nav.dart';
+import '../../logic/alerts/alerts_cubit.dart';
+import '../widgets/alerts/alert_card.dart';
+import '../widgets/alerts/alert_summary_tile.dart';
+import '../widgets/common/app_bottom_nav.dart';
+import '../widgets/common/app_shimmer_list.dart';
 
 /// Alerts & Signals screen — score-change/upgrade-downgrade/price-zone
-/// notifications, filterable by category. Currently backed by static demo
-/// data matching the mockup.
-class AlertsPage extends StatefulWidget {
+/// notifications, filterable by category. Alert data comes from
+/// [AlertsCubit] (backed by the shared mock [AlertRepository]).
+class AlertsPage extends StatelessWidget {
   const AlertsPage({super.key});
 
   @override
-  State<AlertsPage> createState() => _AlertsPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => AlertsCubit(),
+      child: const _AlertsView(),
+    );
+  }
 }
 
-class _AlertsPageState extends State<AlertsPage> {
-  AlertCategory? _filter;
-
-  static const _alerts = [
-    AlertItem(
-      category: AlertCategory.upgrade,
-      ticker: 'MU',
-      companyName: 'Micron Technology',
-      title: 'MU upgraded 82 → 87',
-      reason: 'Momentum + earnings improved',
-      timeAgo: '2hr ago',
-      icon: Icons.trending_up_rounded,
-      iconColor: AppColors.strongBuy,
-      status: StockStatus.strongBuy,
-    ),
-    AlertItem(
-      category: AlertCategory.priceAlert,
-      ticker: 'AAPL',
-      companyName: 'Apple Inc.',
-      title: 'AAPL entered Buy zone',
-      reason: 'Price moved into our Buy zone',
-      timeAgo: '3hr ago',
-      icon: Icons.adjust_rounded,
-      iconColor: AppColors.accentCyan,
-    ),
-    AlertItem(
-      category: AlertCategory.downgrade,
-      ticker: 'XOM',
-      companyName: 'Exxon Mobil Corporation',
-      title: 'XOM downgraded 58 → 51',
-      reason: 'Revenue and EPS weakened',
-      timeAgo: '5hr ago',
-      icon: Icons.trending_down_rounded,
-      iconColor: AppColors.trim,
-      status: StockStatus.trim,
-    ),
-    AlertItem(
-      category: AlertCategory.priceAlert,
-      ticker: 'NVDA',
-      companyName: 'NVIDIA Corporation',
-      title: 'NVDA remains Strong Buy',
-      reason: 'Strong momentum and outlook intact',
-      timeAgo: '7hr ago',
-      icon: Icons.verified_rounded,
-      iconColor: AppColors.accentBlue,
-      status: StockStatus.strongBuy,
-    ),
-    AlertItem(
-      category: AlertCategory.upgrade,
-      ticker: 'RKLB',
-      companyName: 'Rocket Lab USA, Inc.',
-      title: 'RKLB upgraded to 78',
-      reason: 'Launch cadence and backlog growth',
-      timeAgo: '9hr ago',
-      icon: Icons.trending_up_rounded,
-      iconColor: AppColors.strongBuy,
-      status: StockStatus.buy,
-    ),
-  ];
+class _AlertsView extends StatelessWidget {
+  const _AlertsView();
 
   @override
   Widget build(BuildContext context) {
-    final upgrades = _alerts.where((a) => a.category == AlertCategory.upgrade).length;
-    final downgrades = _alerts.where((a) => a.category == AlertCategory.downgrade).length;
-    final priceAlerts = _alerts.where((a) => a.category == AlertCategory.priceAlert).length;
-    final visibleAlerts = _filter == null ? _alerts : _alerts.where((a) => a.category == _filter).toList();
-
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -98,115 +44,165 @@ class _AlertsPageState extends State<AlertsPage> {
           children: [
             Text('SDK', style: AppTextStyles.wordmark),
             const SizedBox(width: 6),
-            Text('Investing', style: AppTextStyles.body.copyWith(color: AppColors.textPrimary)),
+            Text(
+              'Investing',
+              style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
+            ),
           ],
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_none_rounded, color: AppColors.textPrimary),
+            icon: const Icon(
+              Icons.notifications_none_rounded,
+              color: AppColors.textPrimary,
+            ),
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.account_circle_outlined, color: AppColors.textPrimary),
-            onPressed: () => Navigator.of(context).pushNamed(AppRoutes.subscription),
+            icon: const Icon(
+              Icons.account_circle_outlined,
+              color: AppColors.textPrimary,
+            ),
+            onPressed: () =>
+                Navigator.of(context).pushNamed(AppRoutes.subscription),
           ),
           const SizedBox(width: AppSpacing.xs),
         ],
       ),
       bottomNavigationBar: const AppBottomNav(currentIndex: 1),
       body: SafeArea(
-        child: ListView(
-          padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.sm, AppSpacing.lg, AppSpacing.xxl),
-          children: [
-            Text('Alerts & Signals', style: AppTextStyles.headline),
-            const SizedBox(height: AppSpacing.md),
-            Row(
-              children: [
-                Expanded(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        _FilterChip(label: 'All', selected: _filter == null, onTap: () => setState(() => _filter = null)),
-                        const SizedBox(width: AppSpacing.sm),
-                        _FilterChip(
-                          label: 'Upgrades',
-                          selected: _filter == AlertCategory.upgrade,
-                          onTap: () => setState(() => _filter = AlertCategory.upgrade),
-                        ),
-                        const SizedBox(width: AppSpacing.sm),
-                        _FilterChip(
-                          label: 'Downgrades',
-                          selected: _filter == AlertCategory.downgrade,
-                          onTap: () => setState(() => _filter = AlertCategory.downgrade),
-                        ),
-                        const SizedBox(width: AppSpacing.sm),
-                        _FilterChip(
-                          label: 'Price Alerts',
-                          selected: _filter == AlertCategory.priceAlert,
-                          onTap: () => setState(() => _filter = AlertCategory.priceAlert),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(width: AppSpacing.sm),
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: AppColors.surface,
-                    borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
-                    border: Border.all(color: AppColors.border),
-                  ),
-                  child: const Icon(Icons.filter_alt_rounded, size: 18, color: AppColors.textMuted),
-                ),
-              ],
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            Row(
-              children: [
-                Expanded(
-                  child: AlertSummaryTile(
-                    icon: Icons.trending_up_rounded,
-                    count: upgrades,
-                    label: 'Upgrades',
-                    accentColor: AppColors.strongBuy,
-                  ),
-                ),
-                const SizedBox(width: AppSpacing.sm),
-                Expanded(
-                  child: AlertSummaryTile(
-                    icon: Icons.trending_down_rounded,
-                    count: downgrades,
-                    label: 'Downgrades',
-                    accentColor: AppColors.trim,
-                  ),
-                ),
-                const SizedBox(width: AppSpacing.sm),
-                Expanded(
-                  child: AlertSummaryTile(
-                    icon: Icons.notifications_none_rounded,
-                    count: priceAlerts,
-                    label: 'Price Alerts',
-                    accentColor: AppColors.hold,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: AppSpacing.lg),
-            for (var i = 0; i < visibleAlerts.length; i++) ...[
-              if (i != 0) const SizedBox(height: AppSpacing.sm),
-              AlertCard(alert: visibleAlerts[i]),
-            ],
-            const SizedBox(height: AppSpacing.xl),
-            Center(
-              child: Text(
-                "You're all caught up!\nWe'll notify you as new alerts and signals arrive.",
-                textAlign: TextAlign.center,
-                style: AppTextStyles.caption,
+        child: BlocBuilder<AlertsCubit, AlertsState>(
+          builder: (context, state) {
+            if (state.status == AlertsStatus.loading) {
+              return const Padding(
+                padding: EdgeInsets.all(AppSpacing.lg),
+                child: AppShimmerList(itemCount: 5),
+              );
+            }
+
+            final alerts = state.alerts;
+            final upgrades = alerts
+                .where((a) => a.category == AlertCategory.upgrade)
+                .length;
+            final downgrades = alerts
+                .where((a) => a.category == AlertCategory.downgrade)
+                .length;
+            final priceAlerts = alerts
+                .where((a) => a.category == AlertCategory.priceAlert)
+                .length;
+            final visibleAlerts = state.visibleAlerts;
+            final setFilter = context.read<AlertsCubit>().setFilter;
+
+            return ListView(
+              padding: const EdgeInsets.fromLTRB(
+                AppSpacing.lg,
+                AppSpacing.sm,
+                AppSpacing.lg,
+                AppSpacing.xxl,
               ),
-            ),
-          ],
+              children: [
+                Text('Alerts & Signals', style: AppTextStyles.headline),
+                const SizedBox(height: AppSpacing.md),
+                Row(
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            _FilterChip(
+                              label: 'All',
+                              selected: state.filter == null,
+                              onTap: () => setFilter(null),
+                            ),
+                            const SizedBox(width: AppSpacing.sm),
+                            _FilterChip(
+                              label: 'Upgrades',
+                              selected: state.filter == AlertCategory.upgrade,
+                              onTap: () => setFilter(AlertCategory.upgrade),
+                            ),
+                            const SizedBox(width: AppSpacing.sm),
+                            _FilterChip(
+                              label: 'Downgrades',
+                              selected: state.filter == AlertCategory.downgrade,
+                              onTap: () => setFilter(AlertCategory.downgrade),
+                            ),
+                            const SizedBox(width: AppSpacing.sm),
+                            _FilterChip(
+                              label: 'Price Alerts',
+                              selected:
+                                  state.filter == AlertCategory.priceAlert,
+                              onTap: () => setFilter(AlertCategory.priceAlert),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: AppSpacing.sm),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: AppColors.surface,
+                        borderRadius: BorderRadius.circular(
+                          AppSpacing.radiusMd,
+                        ),
+                        border: Border.all(color: AppColors.border),
+                      ),
+                      child: const Icon(
+                        Icons.filter_alt_rounded,
+                        size: 18,
+                        color: AppColors.textMuted,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppSpacing.lg),
+                Row(
+                  children: [
+                    Expanded(
+                      child: AlertSummaryTile(
+                        icon: Icons.trending_up_rounded,
+                        count: upgrades,
+                        label: 'Upgrades',
+                        accentColor: AppColors.strongBuy,
+                      ),
+                    ),
+                    const SizedBox(width: AppSpacing.sm),
+                    Expanded(
+                      child: AlertSummaryTile(
+                        icon: Icons.trending_down_rounded,
+                        count: downgrades,
+                        label: 'Downgrades',
+                        accentColor: AppColors.trim,
+                      ),
+                    ),
+                    const SizedBox(width: AppSpacing.sm),
+                    Expanded(
+                      child: AlertSummaryTile(
+                        icon: Icons.notifications_none_rounded,
+                        count: priceAlerts,
+                        label: 'Price Alerts',
+                        accentColor: AppColors.hold,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppSpacing.lg),
+                for (var i = 0; i < visibleAlerts.length; i++) ...[
+                  if (i != 0) const SizedBox(height: AppSpacing.sm),
+                  AlertCard(alert: visibleAlerts[i]),
+                ],
+                const SizedBox(height: AppSpacing.xl),
+                Center(
+                  child: Text(
+                    "You're all caught up!\nWe'll notify you as new alerts and signals arrive.",
+                    textAlign: TextAlign.center,
+                    style: AppTextStyles.caption,
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );
@@ -214,7 +210,11 @@ class _AlertsPageState extends State<AlertsPage> {
 }
 
 class _FilterChip extends StatelessWidget {
-  const _FilterChip({required this.label, required this.selected, required this.onTap});
+  const _FilterChip({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
 
   final String label;
   final bool selected;
@@ -225,11 +225,16 @@ class _FilterChip extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: 8),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.md,
+          vertical: 8,
+        ),
         decoration: BoxDecoration(
           color: selected ? AppColors.accentBlue : AppColors.surface,
           borderRadius: BorderRadius.circular(999),
-          border: Border.all(color: selected ? AppColors.accentBlue : AppColors.border),
+          border: Border.all(
+            color: selected ? AppColors.accentBlue : AppColors.border,
+          ),
         ),
         child: Text(
           label,

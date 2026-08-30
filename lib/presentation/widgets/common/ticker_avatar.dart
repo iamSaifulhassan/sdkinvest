@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_colors.dart';
+
+import '../../../core/theme/app_colors.dart';
 
 /// Placeholder stock "logo" — a tinted initials circle derived from the
 /// ticker. Swap for real brand logo assets once an image pipeline exists.
@@ -30,7 +31,8 @@ class TickerAvatar extends StatelessWidget {
     'CVX': Color(0xff0055a4),
   };
 
-  Color get _bg => _brandColors[ticker] ?? _palette[ticker.hashCode.abs() % _palette.length];
+  Color get _bg =>
+      _brandColors[ticker] ?? _palette[ticker.hashCode.abs() % _palette.length];
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,11 @@ class TickerAvatar extends StatelessWidget {
       backgroundColor: _bg.withValues(alpha: 0.16),
       child: Text(
         initials,
-        style: TextStyle(color: _bg, fontSize: size * 0.32, fontWeight: FontWeight.w800),
+        style: TextStyle(
+          color: _bg,
+          fontSize: size * 0.32,
+          fontWeight: FontWeight.w800,
+        ),
       ),
     );
   }

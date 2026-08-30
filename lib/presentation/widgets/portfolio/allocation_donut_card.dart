@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../core/theme/app_text_styles.dart';
-import '../../data/models/allocation_slice.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_text_styles.dart';
+import '../../../data/models/allocation_slice.dart';
 
 /// "Allocation" card: a donut chart of portfolio weight by category, with a
 /// colored-dot legend listing each slice's label and percent.
@@ -26,9 +27,19 @@ class AllocationDonutCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text('Allocation', style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w600, fontSize: 15)),
+              Text(
+                'Allocation',
+                style: AppTextStyles.body.copyWith(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 15,
+                ),
+              ),
               const SizedBox(width: 4),
-              Icon(Icons.info_outline_rounded, size: 13, color: AppColors.textMuted),
+              Icon(
+                Icons.info_outline_rounded,
+                size: 13,
+                color: AppColors.textMuted,
+              ),
             ],
           ),
           const SizedBox(height: AppSpacing.md),
@@ -54,20 +65,28 @@ class AllocationDonutCard extends StatelessWidget {
                             Container(
                               width: 9,
                               height: 9,
-                              decoration: BoxDecoration(color: slice.color, shape: BoxShape.circle),
+                              decoration: BoxDecoration(
+                                color: slice.color,
+                                shape: BoxShape.circle,
+                              ),
                             ),
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
                                 slice.label,
-                                style: AppTextStyles.body.copyWith(fontSize: 12.5),
+                                style: AppTextStyles.body.copyWith(
+                                  fontSize: 12.5,
+                                ),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
                             Text(
                               '${slice.percent.toStringAsFixed(0)}%',
-                              style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w700, fontSize: 12.5),
+                              style: AppTextStyles.body.copyWith(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 12.5,
+                              ),
                             ),
                           ],
                         ),
@@ -116,5 +135,6 @@ class _DonutPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _DonutPainter oldDelegate) => oldDelegate.slices != slices;
+  bool shouldRepaint(covariant _DonutPainter oldDelegate) =>
+      oldDelegate.slices != slices;
 }

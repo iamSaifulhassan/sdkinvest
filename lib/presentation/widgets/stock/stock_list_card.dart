@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_colors.dart';
-import '../../data/models/stock.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../../../data/models/stock.dart';
 import 'stock_row_card.dart';
 
 /// A column of [StockRowCard] rows separated by hairline dividers, meant to
@@ -30,7 +31,8 @@ class StockListCard extends StatelessWidget {
             showTagline: showTagline,
             onTap: onTapStock == null ? null : () => onTapStock!(stocks[i]),
           ),
-          if (i != stocks.length - 1) const Divider(height: 1, color: AppColors.creamBorder),
+          if (i != stocks.length - 1)
+            const Divider(height: 1, color: AppColors.creamBorder),
         ],
       ],
     );

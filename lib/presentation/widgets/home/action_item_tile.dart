@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../data/models/home_action_item.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../data/models/home_action_item.dart';
 
 /// One tinted tile inside Home's Action Center card.
 class ActionItemTile extends StatelessWidget {
@@ -23,13 +24,24 @@ class ActionItemTile extends StatelessWidget {
         children: [
           Icon(item.icon, color: item.accentColor, size: 18),
           const SizedBox(height: AppSpacing.xs),
-          Text(item.title, style: TextStyle(color: AppColors.inkMuted, fontSize: 10, fontWeight: FontWeight.w600)),
+          Text(
+            item.title,
+            style: TextStyle(
+              color: AppColors.inkMuted,
+              fontSize: 10,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
           const SizedBox(height: 2),
           Text(
             item.detail,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: AppColors.ink, fontSize: 13, fontWeight: FontWeight.w700),
+            style: TextStyle(
+              color: AppColors.ink,
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           Text(
             item.subtitle,
@@ -38,7 +50,10 @@ class ActionItemTile extends StatelessWidget {
             style: TextStyle(color: AppColors.inkMuted, fontSize: 11),
           ),
           const SizedBox(height: AppSpacing.xs),
-          Text(item.timeAgo, style: TextStyle(color: AppColors.inkMuted, fontSize: 10)),
+          Text(
+            item.timeAgo,
+            style: TextStyle(color: AppColors.inkMuted, fontSize: 10),
+          ),
         ],
       ),
     );

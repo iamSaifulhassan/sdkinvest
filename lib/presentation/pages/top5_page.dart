@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../core/routing/app_routes.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_spacing.dart';
 import '../../core/theme/app_text_styles.dart';
 import '../../data/models/stock.dart';
 import '../../logic/top5/top5_cubit.dart';
-import '../widgets/app_bottom_nav.dart';
-import '../widgets/app_feedback.dart';
-import '../widgets/app_shimmer_list.dart';
-import '../widgets/stock_list_card.dart';
-import '../widgets/trim_stock_card.dart';
+import '../widgets/common/app_bottom_nav.dart';
+import '../widgets/common/app_feedback.dart';
+import '../widgets/common/app_shimmer_list.dart';
+import '../widgets/stock/stock_list_card.dart';
+import '../widgets/stock/trim_stock_card.dart';
 
 class Top5Page extends StatelessWidget {
   const Top5Page({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => Top5Cubit(),
-      child: const _Top5View(),
-    );
+    return BlocProvider(create: (_) => Top5Cubit(), child: const _Top5View());
   }
 }
 
@@ -48,7 +46,11 @@ class _Top5View extends StatelessWidget {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.info_outline_rounded, size: 13, color: AppColors.textMuted),
+                    Icon(
+                      Icons.info_outline_rounded,
+                      size: 13,
+                      color: AppColors.textMuted,
+                    ),
                     const SizedBox(width: 4),
                     Text('Updated today', style: AppTextStyles.caption),
                   ],
@@ -58,18 +60,33 @@ class _Top5View extends StatelessWidget {
             const Spacer(),
             IconButton(
               tooltip: 'Compare stocks',
-              onPressed: () => Navigator.of(context).pushNamed(AppRoutes.compareStocks),
-              icon: const Icon(Icons.compare_arrows_rounded, color: AppColors.textPrimary),
+              onPressed: () =>
+                  Navigator.of(context).pushNamed(AppRoutes.compareStocks),
+              icon: const Icon(
+                Icons.compare_arrows_rounded,
+                color: AppColors.textPrimary,
+              ),
             ),
             OutlinedButton.icon(
-              onPressed: () => AppFeedback.showSnackBar(context, 'Filters are coming in a later phase'),
+              onPressed: () => AppFeedback.showSnackBar(
+                context,
+                'Filters are coming in a later phase',
+              ),
               style: OutlinedButton.styleFrom(
                 foregroundColor: AppColors.textPrimary,
                 side: const BorderSide(color: AppColors.border),
-                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.sm,
+                  vertical: 6,
+                ),
               ),
               icon: const Icon(Icons.filter_alt_rounded, size: 16),
-              label: Text('Filter', style: AppTextStyles.caption.copyWith(color: AppColors.textPrimary)),
+              label: Text(
+                'Filter',
+                style: AppTextStyles.caption.copyWith(
+                  color: AppColors.textPrimary,
+                ),
+              ),
             ),
           ],
         ),
@@ -89,7 +106,12 @@ class _Top5View extends StatelessWidget {
             return RefreshIndicator(
               onRefresh: context.read<Top5Cubit>().refresh,
               child: ListView(
-                padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.sm, AppSpacing.lg, AppSpacing.xxl),
+                padding: const EdgeInsets.fromLTRB(
+                  AppSpacing.lg,
+                  AppSpacing.sm,
+                  AppSpacing.lg,
+                  AppSpacing.xxl,
+                ),
                 children: [
                   _FilterBar(
                     selected: state.filter,
@@ -101,16 +123,21 @@ class _Top5View extends StatelessWidget {
                       padding: const EdgeInsets.all(AppSpacing.md),
                       decoration: BoxDecoration(
                         color: AppColors.cream,
-                        borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
+                        borderRadius: BorderRadius.circular(
+                          AppSpacing.radiusLg,
+                        ),
                       ),
                       child: StockListCard(
                         stocks: state.topStocks,
                         showRank: true,
                         showTagline: true,
-                        onTapStock: (_) => Navigator.of(context).pushNamed(AppRoutes.stockDetail),
+                        onTapStock: (_) =>
+                            Navigator.of(context)
+                                .pushNamed(AppRoutes.stockDetail),
                       ),
                     ),
-                  if (showRanked && showTrim) const SizedBox(height: AppSpacing.xl),
+                  if (showRanked && showTrim)
+                    const SizedBox(height: AppSpacing.xl),
                   if (showTrim) _TrimSection(stocks: state.trimStocks),
                 ],
               ),
@@ -153,15 +180,21 @@ class _FilterBar extends StatelessWidget {
                   duration: const Duration(milliseconds: 150),
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   decoration: BoxDecoration(
-                    color: filter == selected ? AppColors.cream : Colors.transparent,
+                    color: filter == selected
+                        ? AppColors.cream
+                        : Colors.transparent,
                     borderRadius: BorderRadius.circular(AppSpacing.radiusSm),
                   ),
                   alignment: Alignment.center,
                   child: Text(
                     label,
                     style: AppTextStyles.caption.copyWith(
-                      color: filter == selected ? AppColors.ink : AppColors.textMuted,
-                      fontWeight: filter == selected ? FontWeight.w700 : FontWeight.w500,
+                      color: filter == selected
+                          ? AppColors.ink
+                          : AppColors.textMuted,
+                      fontWeight: filter == selected
+                          ? FontWeight.w700
+                          : FontWeight.w500,
                     ),
                   ),
                 ),
@@ -194,7 +227,8 @@ class _TrimSection extends StatelessWidget {
               Expanded(
                 child: TrimStockCard(
                   stock: stocks[i],
-                  onTap: () => Navigator.of(context).pushNamed(AppRoutes.stockDetail),
+                  onTap: () =>
+                      Navigator.of(context).pushNamed(AppRoutes.stockDetail),
                 ),
               ),
             ],

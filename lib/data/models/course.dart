@@ -26,12 +26,25 @@ class Course extends Equatable {
   bool get isStarted => progressPercent > 0;
 
   @override
-  List<Object?> get props => [icon, iconColor, title, description, lessonCount, durationMinutes, progressPercent];
+  List<Object?> get props => [
+    icon,
+    iconColor,
+    title,
+    description,
+    lessonCount,
+    durationMinutes,
+    progressPercent,
+  ];
 }
 
 /// A short standalone tip on the SDK Academy screen ("Quick Lessons" row).
 class QuickLesson extends Equatable {
-  const QuickLesson({required this.icon, required this.iconColor, required this.title, required this.durationMinutes});
+  const QuickLesson({
+    required this.icon,
+    required this.iconColor,
+    required this.title,
+    required this.durationMinutes,
+  });
 
   final IconData icon;
   final Color iconColor;

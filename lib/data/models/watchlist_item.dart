@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+
 import 'stock.dart';
 
 /// Which trailing signal a Watchlist row highlights.
@@ -6,10 +7,10 @@ enum WatchlistIndicator { nearBuyZone, scoreRising, lowConfidence }
 
 extension WatchlistIndicatorLabel on WatchlistIndicator {
   String get label => switch (this) {
-        WatchlistIndicator.nearBuyZone => 'Near Buy zone',
-        WatchlistIndicator.scoreRising => 'Score rising',
-        WatchlistIndicator.lowConfidence => 'Low confidence',
-      };
+    WatchlistIndicator.nearBuyZone => 'Near Buy zone',
+    WatchlistIndicator.scoreRising => 'Score rising',
+    WatchlistIndicator.lowConfidence => 'Low confidence',
+  };
 }
 
 /// One row on the Watchlist screen — a tracked stock plus live price and
@@ -38,5 +39,14 @@ class WatchlistItem extends Equatable {
   bool get isPositive => change >= 0;
 
   @override
-  List<Object?> get props => [ticker, name, price, change, changePercent, sdkScore, status, indicator];
+  List<Object?> get props => [
+    ticker,
+    name,
+    price,
+    change,
+    changePercent,
+    sdkScore,
+    status,
+    indicator,
+  ];
 }

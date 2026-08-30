@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'app_colors.dart';
 import 'app_text_styles.dart';
 
@@ -14,7 +15,7 @@ class AppTheme {
       colorScheme: const ColorScheme.dark(
         surface: AppColors.background,
         primary: AppColors.primary,
-        secondary: AppColors.accent,  
+        secondary: AppColors.accent,
         error: AppColors.danger,
       ),
       appBarTheme: AppBarTheme(
@@ -34,14 +35,12 @@ class AppTheme {
         bodySmall: AppTextStyles.caption,
         labelLarge: AppTextStyles.button,
       ),
-      snackBarTheme:  SnackBarThemeData(
+      snackBarTheme: SnackBarThemeData(
         backgroundColor: AppColors.surface,
         contentTextStyle: AppTextStyles.body,
         behavior: SnackBarBehavior.floating,
       ),
-      dialogTheme: const DialogThemeData(
-        backgroundColor: AppColors.surfaceAlt,
-      ),
+      dialogTheme: const DialogThemeData(backgroundColor: AppColors.surfaceAlt),
     );
   }
 }
