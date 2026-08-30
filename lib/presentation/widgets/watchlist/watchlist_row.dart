@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_text_styles.dart';
-import '../../../data/models/watchlist_item.dart';
+import '../../../data/models/watchlist/watchlist_item.dart';
 import '../common/status_pill.dart';
 import '../common/ticker_avatar.dart';
 

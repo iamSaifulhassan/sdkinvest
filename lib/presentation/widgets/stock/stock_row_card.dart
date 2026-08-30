@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
-import '../../../data/models/stock.dart';
+import '../../../data/models/stock/stock.dart';
 import '../common/status_pill.dart';
 import '../common/ticker_avatar.dart';
 

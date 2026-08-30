@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-import 'stock.dart';
+import '../stock/stock.dart';
 
 /// Which segment of the Alerts & Signals filter bar an alert belongs to.
 enum AlertCategory { upgrade, downgrade, priceAlert }

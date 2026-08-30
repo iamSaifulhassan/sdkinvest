@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/models/subscription_plan.dart';
+import '../../data/models/subscription/subscription_plan.dart';
 
 class SubscriptionState extends Equatable {
   const SubscriptionState({

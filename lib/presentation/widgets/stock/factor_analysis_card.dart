@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_text_styles.dart';
-import '../../../data/models/factor_score.dart';
+import '../../../data/models/stock/factor_score.dart';
 
 /// "6-Factor Analysis" card: a 3-column grid of bordered tiles, each with a
 /// factor name, score (or "Missing"), and a thin progress bar.

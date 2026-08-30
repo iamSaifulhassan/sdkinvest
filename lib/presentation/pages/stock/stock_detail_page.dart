@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../../core/routing/app_routes.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../core/theme/app_text_styles.dart';
-import '../../data/models/factor_score.dart';
-import '../../data/models/score_insight.dart';
-import '../../data/models/stock.dart';
-import '../widgets/common/app_bottom_nav.dart';
-import '../widgets/stock/factor_analysis_card.dart';
-import '../widgets/stock/score_history_card.dart';
-import '../widgets/stock/score_insights_card.dart';
-import '../widgets/stock/sdk_score_card.dart';
-import '../widgets/common/ticker_avatar.dart';
+import '../../../core/routing/app_routes.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_text_styles.dart';
+import '../../../data/models/stock/factor_score.dart';
+import '../../../data/models/stock/score_insight.dart';
+import '../../../data/models/stock/stock.dart';
+import '../../widgets/common/app_bottom_nav.dart';
+import '../../widgets/stock/factor_analysis_card.dart';
+import '../../widgets/stock/score_history_card.dart';
+import '../../widgets/stock/score_insights_card.dart';
+import '../../widgets/stock/sdk_score_card.dart';
+import '../../widgets/common/ticker_avatar.dart';
 
 /// Stock detail screen — SDK Score, 6-factor breakdown, score history chart,
 /// and the reasoning (and missing data) behind the score. Currently backed

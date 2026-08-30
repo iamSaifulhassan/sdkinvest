@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_text_styles.dart';
-import '../../../data/models/stock.dart';
+import '../../../data/models/stock/stock.dart';
 import '../common/status_pill.dart';
 
 /// Headline SDK Score card: big score number, recommendation pill, and a

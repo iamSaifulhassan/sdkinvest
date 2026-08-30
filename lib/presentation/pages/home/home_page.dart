@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../core/routing/app_routes.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../core/theme/app_text_styles.dart';
-import '../../logic/home/home_cubit.dart';
-import '../widgets/home/action_item_tile.dart';
-import '../widgets/common/app_bottom_nav.dart';
-import '../widgets/common/app_loading_indicator.dart';
-import '../widgets/home/cream_section_card.dart';
-import '../widgets/common/portfolio_hero_card.dart';
-import '../widgets/common/stat_tile.dart';
-import '../widgets/stock/stock_list_card.dart';
+import '../../../core/routing/app_routes.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_text_styles.dart';
+import '../../../logic/home/home_cubit.dart';
+import '../../widgets/home/action_item_tile.dart';
+import '../../widgets/common/app_bottom_nav.dart';
+import '../../widgets/common/app_loading_indicator.dart';
+import '../../widgets/home/cream_section_card.dart';
+import '../../widgets/common/portfolio_hero_card.dart';
+import '../../widgets/common/stat_tile.dart';
+import '../../widgets/stock/stock_list_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

@@ -2,9 +2,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/theme/app_colors.dart';
-import '../../data/models/allocation_slice.dart';
-import '../../data/models/holding.dart';
-import '../../data/models/stock.dart';
+import '../../data/models/portfolio/allocation_slice.dart';
+import '../../data/models/portfolio/holding.dart';
+import '../../data/models/stock/stock.dart';
 
 enum PortfolioStatus { loading, loaded }
 

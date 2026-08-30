@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../core/theme/app_text_styles.dart';
-import '../../logic/watchlist/watchlist_cubit.dart';
-import '../widgets/alerts/alert_card.dart';
-import '../widgets/common/app_bottom_nav.dart';
-import '../widgets/common/app_shimmer_list.dart';
-import '../widgets/watchlist/watchlist_row.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_text_styles.dart';
+import '../../../logic/watchlist/watchlist_cubit.dart';
+import '../../widgets/alerts/alert_card.dart';
+import '../../widgets/common/app_bottom_nav.dart';
+import '../../widgets/common/app_shimmer_list.dart';
+import '../../widgets/watchlist/watchlist_row.dart';
 
 /// Watchlist screen — searchable, filterable list of tracked stocks with
 /// live price/score/signal, plus a compact "Active Alerts" preview.

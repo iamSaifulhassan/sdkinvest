@@ -2,9 +2,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/models/home_action_item.dart';
-import '../../data/models/stock.dart';
-import '../../data/repositories/stock_repository.dart';
+import '../../data/models/home/home_action_item.dart';
+import '../../data/models/stock/stock.dart';
+import '../../data/repositories/stock/stock_repository.dart';
 
 enum HomeStatus { loading, loaded }
 

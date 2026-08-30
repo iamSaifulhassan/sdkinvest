@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../core/theme/app_text_styles.dart';
-import '../../logic/portfolio/portfolio_cubit.dart';
-import '../widgets/portfolio/allocation_donut_card.dart';
-import '../widgets/common/app_bottom_nav.dart';
-import '../widgets/common/app_shimmer_list.dart';
-import '../widgets/portfolio/holdings_table.dart';
-import '../widgets/common/portfolio_hero_card.dart';
-import '../widgets/portfolio/rebalancing_insight_card.dart';
-import '../widgets/common/stat_tile.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_text_styles.dart';
+import '../../../logic/portfolio/portfolio_cubit.dart';
+import '../../widgets/portfolio/allocation_donut_card.dart';
+import '../../widgets/common/app_bottom_nav.dart';
+import '../../widgets/common/app_shimmer_list.dart';
+import '../../widgets/portfolio/holdings_table.dart';
+import '../../widgets/common/portfolio_hero_card.dart';
+import '../../widgets/portfolio/rebalancing_insight_card.dart';
+import '../../widgets/common/stat_tile.dart';
 
 /// Portfolio screen — total value + return, allocation breakdown, full
 /// holdings table, and a rebalancing suggestion.

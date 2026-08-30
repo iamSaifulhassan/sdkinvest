@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_text_styles.dart';
-import '../../../data/models/alert_item.dart';
+import '../../../data/models/alerts/alert_item.dart';
 import '../common/status_pill.dart';
 
 /// A single row on the Alerts & Signals list: leading category icon,

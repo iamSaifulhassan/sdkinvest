@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import 'stock.dart';
+import '../stock/stock.dart';
 
 /// Which trailing signal a Watchlist row highlights.
 enum WatchlistIndicator { nearBuyZone, scoreRising, lowConfidence }

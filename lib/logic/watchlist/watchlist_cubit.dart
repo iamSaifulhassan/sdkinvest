@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/models/alert_item.dart';
-import '../../data/models/stock.dart';
-import '../../data/models/watchlist_item.dart';
-import '../../data/repositories/alert_repository.dart';
+import '../../data/models/alerts/alert_item.dart';
+import '../../data/models/stock/stock.dart';
+import '../../data/models/watchlist/watchlist_item.dart';
+import '../../data/repositories/alerts/alert_repository.dart';
 
 enum WatchlistStatus { loading, loaded }
 

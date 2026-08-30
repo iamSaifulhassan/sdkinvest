@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../core/routing/app_routes.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../core/theme/app_text_styles.dart';
-import '../../data/models/alert_item.dart';
-import '../../logic/alerts/alerts_cubit.dart';
-import '../widgets/alerts/alert_card.dart';
-import '../widgets/alerts/alert_summary_tile.dart';
-import '../widgets/common/app_bottom_nav.dart';
-import '../widgets/common/app_shimmer_list.dart';
+import '../../../core/routing/app_routes.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_text_styles.dart';
+import '../../../data/models/alerts/alert_item.dart';
+import '../../../logic/alerts/alerts_cubit.dart';
+import '../../widgets/alerts/alert_card.dart';
+import '../../widgets/alerts/alert_summary_tile.dart';
+import '../../widgets/common/app_bottom_nav.dart';
+import '../../widgets/common/app_shimmer_list.dart';
 
 /// Alerts & Signals screen — score-change/upgrade-downgrade/price-zone
 /// notifications, filterable by category. Alert data comes from

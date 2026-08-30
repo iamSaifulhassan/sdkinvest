@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_text_styles.dart';
-import '../../../data/models/allocation_slice.dart';
+import '../../../data/models/portfolio/allocation_slice.dart';
 
 /// "Allocation" card: a donut chart of portfolio weight by category, with a
 /// colored-dot legend listing each slice's label and percent.

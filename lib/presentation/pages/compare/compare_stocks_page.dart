@@ -3,16 +3,16 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../core/theme/app_text_styles.dart';
-import '../../data/models/stock.dart';
-import '../../logic/compare/compare_cubit.dart';
-import '../widgets/common/app_bottom_nav.dart';
-import '../widgets/common/app_feedback.dart';
-import '../widgets/common/app_shimmer_list.dart';
-import '../widgets/common/status_pill.dart';
-import '../widgets/common/ticker_avatar.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_text_styles.dart';
+import '../../../data/models/stock/stock.dart';
+import '../../../logic/compare/compare_cubit.dart';
+import '../../widgets/common/app_bottom_nav.dart';
+import '../../widgets/common/app_feedback.dart';
+import '../../widgets/common/app_shimmer_list.dart';
+import '../../widgets/common/status_pill.dart';
+import '../../widgets/common/ticker_avatar.dart';
 
 /// Side-by-side comparison of up to [CompareCubit.maxSlots] stocks: summary
 /// cards (price/score/rating/confidence), a factor radar chart, and a

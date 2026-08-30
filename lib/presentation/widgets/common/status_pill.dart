@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
-import '../../../data/models/stock.dart';
+import '../../../data/models/stock/stock.dart';
 
 /// Shared color/label mapping for [StockStatus], so every screen that needs
 /// a status color or a readable label (not just the [StatusPill] badge

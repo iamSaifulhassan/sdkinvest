@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
-import '../../../data/models/home_action_item.dart';
+import '../../../data/models/home/home_action_item.dart';
 
 /// One tinted tile inside Home's Action Center card.
 class ActionItemTile extends StatelessWidget {

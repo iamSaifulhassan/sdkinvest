@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/theme/app_colors.dart';
-import '../../data/models/course.dart';
+import '../../data/models/learn/course.dart';
 
 enum LearnStatus { loading, loaded }
 

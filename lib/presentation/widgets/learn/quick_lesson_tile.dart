@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_text_styles.dart';
-import '../../../data/models/course.dart';
+import '../../../data/models/learn/course.dart';
 
 /// One compact tile in the Academy screen's "Quick Lessons" row.
 class QuickLessonTile extends StatelessWidget {

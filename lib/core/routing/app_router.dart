@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../../presentation/pages/home_page.dart';
-import '../../presentation/pages/top5_page.dart';
-import '../../presentation/pages/stock_detail_page.dart';
-import '../../presentation/pages/alerts_page.dart';
-import '../../presentation/pages/compare_stocks_page.dart';
-import '../../presentation/pages/portfolio_page.dart';
-import '../../presentation/pages/watchlist_page.dart';
-import '../../presentation/pages/learn_page.dart';
-import '../../presentation/pages/subscription_page.dart';
+import '../../presentation/pages/home/home_page.dart';
+import '../../presentation/pages/top5/top5_page.dart';
+import '../../presentation/pages/stock/stock_detail_page.dart';
+import '../../presentation/pages/alerts/alerts_page.dart';
+import '../../presentation/pages/compare/compare_stocks_page.dart';
+import '../../presentation/pages/portfolio/portfolio_page.dart';
+import '../../presentation/pages/watchlist/watchlist_page.dart';
+import '../../presentation/pages/learn/learn_page.dart';
+import '../../presentation/pages/subscription/subscription_page.dart';
 import 'app_routes.dart';
 
 class AppRouter {

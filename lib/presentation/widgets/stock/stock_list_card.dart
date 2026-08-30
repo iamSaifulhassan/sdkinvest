@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_colors.dart';
-import '../../../data/models/stock.dart';
+import '../../../data/models/stock/stock.dart';
 import 'stock_row_card.dart';
 
 /// A column of [StockRowCard] rows separated by hairline dividers, meant to

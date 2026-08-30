@@ -1,5 +1,5 @@
-import '../models/factor_score.dart';
-import '../models/stock.dart';
+import '../../models/stock/factor_score.dart';
+import '../../models/stock/stock.dart';
 
 /// Single source of truth for the mock SDK Score stock universe. Cubits
 /// depend on this contract rather than embedding their own stock literals,

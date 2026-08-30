@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_text_styles.dart';
-import '../../../data/models/score_insight.dart';
+import '../../../data/models/stock/score_insight.dart';
 
 /// Card of bulleted insights — used for both "Why this score?" (positive,
 /// green check) and "Material Missing Factors" (warning, amber icon).

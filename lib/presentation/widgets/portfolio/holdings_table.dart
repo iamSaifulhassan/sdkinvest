@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_text_styles.dart';
-import '../../../data/models/holding.dart';
+import '../../../data/models/portfolio/holding.dart';
 import '../common/status_pill.dart';
 import '../common/ticker_avatar.dart';
 

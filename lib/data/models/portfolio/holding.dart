@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import 'stock.dart';
+import '../stock/stock.dart';
 
 /// One position in the Portfolio screen's holdings table.
 class Holding extends Equatable {

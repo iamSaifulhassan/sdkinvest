@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../models/alert_item.dart';
-import '../models/stock.dart';
-import '../../core/theme/app_colors.dart';
+import '../../models/alerts/alert_item.dart';
+import '../../models/stock/stock.dart';
+import '../../../core/theme/app_colors.dart';
 
 /// Single source of truth for score-change/price-zone alerts. Both the full
 /// Alerts & Signals screen and the Watchlist screen's "Active Alerts"

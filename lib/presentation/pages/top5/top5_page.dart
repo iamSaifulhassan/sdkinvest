@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../core/routing/app_routes.dart';
-import '../../core/theme/app_colors.dart';
-import '../../core/theme/app_spacing.dart';
-import '../../core/theme/app_text_styles.dart';
-import '../../data/models/stock.dart';
-import '../../logic/top5/top5_cubit.dart';
-import '../widgets/common/app_bottom_nav.dart';
-import '../widgets/common/app_feedback.dart';
-import '../widgets/common/app_shimmer_list.dart';
-import '../widgets/stock/stock_list_card.dart';
-import '../widgets/stock/trim_stock_card.dart';
+import '../../../core/routing/app_routes.dart';
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_spacing.dart';
+import '../../../core/theme/app_text_styles.dart';
+import '../../../data/models/stock/stock.dart';
+import '../../../logic/top5/top5_cubit.dart';
+import '../../widgets/common/app_bottom_nav.dart';
+import '../../widgets/common/app_feedback.dart';
+import '../../widgets/common/app_shimmer_list.dart';
+import '../../widgets/stock/stock_list_card.dart';
+import '../../widgets/stock/trim_stock_card.dart';
 
 class Top5Page extends StatelessWidget {
   const Top5Page({super.key});
