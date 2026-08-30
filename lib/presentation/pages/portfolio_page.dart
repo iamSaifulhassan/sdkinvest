@@ -98,7 +98,7 @@ class _PortfolioView extends StatelessWidget {
                           icon: Icons.star_outline_rounded,
                           label: 'Avg SDK Score',
                           value: '${state.avgSdkScore}',
-                          accentColor: Color(0xff8b5cf6),
+                          accentColor: AppColors.accentPurple,
                         ),
                       ),
                     ],

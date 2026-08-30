@@ -59,7 +59,7 @@ class WatchlistRow extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(item.price.toStringAsFixed(2), style: AppTextStyles.figure.copyWith(fontSize: 14)),
+                    Text('\$${item.price.toStringAsFixed(2)}', style: AppTextStyles.figure.copyWith(fontSize: 14)),
                     Text(
                       '${item.isPositive ? '+' : ''}${item.change.toStringAsFixed(2)} (${item.changePercent.toStringAsFixed(2)}%)',
                       style: AppTextStyles.caption.copyWith(fontSize: 10, color: changeColor),

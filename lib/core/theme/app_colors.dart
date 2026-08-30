@@ -47,6 +47,10 @@ class AppColors {
   /// and neutral "info" alert/price-zone icons.
   static const Color accentCyan = Color(0xff06b6d4);
 
+  /// Tertiary accent (violet) — ticker-avatar fallback palette, "Other"
+  /// allocation slice, and a couple of decorative icon colors.
+  static const Color accentPurple = Color(0xff8b5cf6);
+
   // Semantic status colors, matching the SDK Score action pills.
   static const Color strongBuy = Color(0xff1fae64);
   static const Color buy = Color(0xff34d399);

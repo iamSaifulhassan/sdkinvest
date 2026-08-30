@@ -33,7 +33,8 @@ class WatchlistState {
       case WatchlistFilter.nearBuy:
         result = result.where((i) => i.indicator == WatchlistIndicator.nearBuyZone).toList();
       case WatchlistFilter.alerts:
-        result = result.where((i) => i.indicator == WatchlistIndicator.lowConfidence).toList();
+        final alertTickers = activeAlerts.map((a) => a.ticker).toSet();
+        result = result.where((i) => alertTickers.contains(i.ticker)).toList();
       case WatchlistFilter.all:
         break;
     }

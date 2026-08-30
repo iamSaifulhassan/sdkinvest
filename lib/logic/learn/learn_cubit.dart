@@ -76,7 +76,7 @@ class LearnCubit extends Cubit<LearnState> {
         ),
         Course(
           icon: Icons.pie_chart_rounded,
-          iconColor: Color(0xff8b5cf6),
+          iconColor: AppColors.accentPurple,
           title: 'Portfolio Decision Framework',
           description: 'Make confident decisions with Buy, Hold, Trim, and Sell.',
           lessonCount: 7,

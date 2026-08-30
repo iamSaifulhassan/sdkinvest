@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../core/theme/app_colors.dart';
@@ -102,7 +101,7 @@ class PortfolioCubit extends Cubit<PortfolioState> {
         AllocationSlice(label: 'Semis', percent: 26, color: AppColors.accentCyan),
         AllocationSlice(label: 'Tech', percent: 20, color: AppColors.strongBuy),
         AllocationSlice(label: 'Energy', percent: 10, color: AppColors.hold),
-        AllocationSlice(label: 'Other', percent: 6, color: Color(0xff8b5cf6)),
+        AllocationSlice(label: 'Other', percent: 6, color: AppColors.accentPurple),
       ],
       holdings: const [
         Holding(
