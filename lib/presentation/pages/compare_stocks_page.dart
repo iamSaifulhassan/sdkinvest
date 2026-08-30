@@ -494,13 +494,6 @@ class _MetricsTable extends StatelessWidget {
 
   final List<Stock> stocks;
 
-  static String _ratingLabel(StockStatus status) => switch (status) {
-        StockStatus.strongBuy => 'Strong Buy',
-        StockStatus.buy => 'Buy',
-        StockStatus.hold => 'Hold',
-        StockStatus.trim => 'Trim',
-      };
-
   @override
   Widget build(BuildContext context) {
     final gridLine = BorderSide(color: AppColors.border, width: 1);
@@ -521,7 +514,7 @@ class _MetricsTable extends StatelessWidget {
         children: [
           _metricHeaderRow(stocks, gridLine),
           _metricRow('SDK Score', stocks, gridLine, (i, s) => Text('${s.sdkScore}', style: _valueStyle(i, fontSize: 20))),
-          _metricRow('Rating', stocks, gridLine, (i, s) => Text(_ratingLabel(s.status), style: _valueStyle(i, fontSize: 14))),
+          _metricRow('Rating', stocks, gridLine, (i, s) => Text(s.status.titleLabel, style: _valueStyle(i, fontSize: 14))),
           _metricRow(
             'Coverage',
             stocks,

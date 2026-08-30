@@ -13,6 +13,9 @@ class PortfolioHeroCard extends StatelessWidget {
     this.chartPoints = const [],
     this.yAxisLabels = const [],
     this.xAxisLabels = const [],
+    this.changeCaption = 'Daily Change',
+    this.secondaryCaption,
+    this.secondaryValue,
   });
 
   final String portfolioValue;
@@ -21,6 +24,15 @@ class PortfolioHeroCard extends StatelessWidget {
   final List<double> chartPoints;
   final List<String> yAxisLabels;
   final List<String> xAxisLabels;
+
+  /// Label above [changeLabel] — "Daily Change" on Home, "Day Gain" on
+  /// Portfolio (same slot, different mockup wording).
+  final String changeCaption;
+
+  /// Optional second stat shown beside the change ("Total Return" on the
+  /// Portfolio screen). Null hides the second column entirely.
+  final String? secondaryCaption;
+  final String? secondaryValue;
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +58,35 @@ class PortfolioHeroCard extends StatelessWidget {
           const SizedBox(height: 4),
           Text(portfolioValue, style: AppTextStyles.displayFigure),
           const SizedBox(height: 6),
-          Text('Daily Change', style: AppTextStyles.caption),
-          Text(changeLabel, style: AppTextStyles.body.copyWith(color: lineColor, fontWeight: FontWeight.w600)),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(changeCaption, style: AppTextStyles.caption),
+                    Text(changeLabel, style: AppTextStyles.body.copyWith(color: lineColor, fontWeight: FontWeight.w600)),
+                  ],
+                ),
+              ),
+              if (secondaryCaption != null && secondaryValue != null)
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(secondaryCaption!, style: AppTextStyles.caption),
+                      Text(
+                        secondaryValue!,
+                        style: AppTextStyles.body.copyWith(color: AppColors.textPrimary, fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
           const SizedBox(height: AppSpacing.md),
           SizedBox(
             height: 116,

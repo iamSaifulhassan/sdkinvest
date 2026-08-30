@@ -6,4 +6,6 @@ class AppRoutes {
   static const String stockDetail = '/stock-detail';
   static const String alerts = '/alerts';
   static const String compareStocks = '/compare-stocks';
+  static const String portfolio = '/portfolio';
+  static const String watchlist = '/watchlist';
 }

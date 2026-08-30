@@ -11,7 +11,12 @@ class AppBottomNav extends StatelessWidget {
 
   final int currentIndex;
 
-  static const _routes = <int, String>{0: AppRoutes.home, 2: AppRoutes.top5};
+  static const _routes = <int, String>{
+    0: AppRoutes.home,
+    1: AppRoutes.watchlist,
+    2: AppRoutes.top5,
+    3: AppRoutes.portfolio,
+  };
   static const _labels = ['Home', 'Stocks', 'Top 5', 'Portfolio', 'Learn'];
 
   @override
