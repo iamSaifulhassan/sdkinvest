@@ -1,0 +1,28 @@
+name: Build Android APK
+
+# Manual trigger from the Actions tab, plus every push to main so a
+# downloadable APK always exists for the latest commit.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.47.2'
+          channel: stable
+
+      - run: flutter pub get
+      - run: flutter build apk --release
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sdkinvest-release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 30

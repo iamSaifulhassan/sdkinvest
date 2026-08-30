@@ -10,4 +10,7 @@ class AppRoutes {
   static const String watchlist = '/watchlist';
   static const String learn = '/learn';
   static const String subscription = '/subscription';
+  static const String onboarding = '/onboarding';
+  static const String login = '/login';
+  static const String signup = '/signup';
 }
