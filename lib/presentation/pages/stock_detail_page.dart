@@ -144,8 +144,9 @@ class StockDetailPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: AppSpacing.lg),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            IntrinsicHeight(
+              child: Row(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const Expanded(
                   child: ScoreInsightsCard(
@@ -188,6 +189,7 @@ class StockDetailPage extends StatelessWidget {
                   ),
                 ),
               ],
+              ),
             ),
           ],
         ),

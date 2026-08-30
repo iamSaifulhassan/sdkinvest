@@ -157,7 +157,7 @@ class _AlertsPageState extends State<AlertsPage> {
                     borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
                     border: Border.all(color: AppColors.border),
                   ),
-                  child: const Icon(Icons.tune_rounded, size: 18, color: AppColors.textMuted),
+                  child: const Icon(Icons.filter_alt_rounded, size: 18, color: AppColors.textMuted),
                 ),
               ],
             ),

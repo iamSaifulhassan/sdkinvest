@@ -26,6 +26,7 @@ class ScoreInsightsCard extends StatelessWidget {
     final leadingIcon = icon ?? (isWarning ? Icons.warning_amber_rounded : Icons.check_circle_rounded);
 
     return Container(
+      width: double.infinity,
       padding: const EdgeInsets.all(AppSpacing.md),
       decoration: BoxDecoration(
         color: AppColors.surface,
@@ -34,6 +35,7 @@ class ScoreInsightsCard extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             children: [
@@ -52,7 +54,12 @@ class ScoreInsightsCard extends StatelessWidget {
           const SizedBox(height: AppSpacing.md),
           for (var i = 0; i < insights.length; i++) ...[
             if (i != 0) const SizedBox(height: AppSpacing.md),
-            _InsightRow(insight: insights[i], icon: insights[i].icon ?? leadingIcon, color: accentColor),
+            _InsightRow(
+              insight: insights[i],
+              icon: insights[i].icon ?? leadingIcon,
+              color: accentColor,
+              isWarning: isWarning,
+            ),
           ],
         ],
       ),
@@ -61,23 +68,41 @@ class ScoreInsightsCard extends StatelessWidget {
 }
 
 class _InsightRow extends StatelessWidget {
-  const _InsightRow({required this.insight, required this.icon, required this.color});
+  const _InsightRow({
+    required this.insight,
+    required this.icon,
+    required this.color,
+    required this.isWarning,
+  });
 
   final ScoreInsight insight;
   final IconData icon;
   final Color color;
+  final bool isWarning;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CircleAvatar(
-          radius: 11,
-          backgroundColor: color.withValues(alpha: 0.16),
-          child: Icon(icon, size: 12, color: color),
-        ),
-        const SizedBox(width: AppSpacing.xs),
+        if (isWarning)
+          Container(
+            width: 36,
+            height: 36,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.16),
+              borderRadius: BorderRadius.circular(AppSpacing.radiusSm),
+            ),
+            child: Icon(icon, size: 18, color: color),
+          )
+        else
+          CircleAvatar(
+            radius: 11,
+            backgroundColor: color.withValues(alpha: 0.16),
+            child: Icon(icon, size: 12, color: color),
+          ),
+        const SizedBox(width: AppSpacing.sm),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

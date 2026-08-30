@@ -63,7 +63,7 @@ class _Top5View extends StatelessWidget {
                 side: const BorderSide(color: AppColors.border),
                 padding: const EdgeInsets.symmetric(horizontal: AppSpacing.sm, vertical: 6),
               ),
-              icon: const Icon(Icons.tune_rounded, size: 16),
+              icon: const Icon(Icons.filter_alt_rounded, size: 16),
               label: Text('Filter', style: AppTextStyles.caption.copyWith(color: AppColors.textPrimary)),
             ),
           ],
