@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../presentation/pages/home_page.dart';
 import '../../presentation/pages/top5_page.dart';
-import '../../presentation/pages/widget_showcase_page.dart';
-import '../../presentation/pages/placeholder_detail_page.dart';
 import '../../presentation/pages/stock_detail_page.dart';
 import '../../presentation/pages/alerts_page.dart';
 import '../../presentation/pages/compare_stocks_page.dart';
@@ -17,10 +15,6 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const HomePage());
       case AppRoutes.top5:
         return MaterialPageRoute(builder: (_) => const Top5Page());
-      case AppRoutes.widgetShowcase:
-        return MaterialPageRoute(builder: (_) => const WidgetShowcasePage());
-      case AppRoutes.placeholderDetail:
-        return MaterialPageRoute(builder: (_) => const PlaceholderDetailPage());
       case AppRoutes.stockDetail:
         return MaterialPageRoute(builder: (_) => const StockDetailPage());
       case AppRoutes.alerts:

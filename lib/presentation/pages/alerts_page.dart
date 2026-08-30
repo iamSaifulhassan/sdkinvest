@@ -41,7 +41,7 @@ class _AlertsPageState extends State<AlertsPage> {
       reason: 'Price moved into our Buy zone',
       timeAgo: '3hr ago',
       icon: Icons.adjust_rounded,
-      iconColor: Color(0xff06b6d4),
+      iconColor: AppColors.accentCyan,
     ),
     AlertItem(
       category: AlertCategory.downgrade,
@@ -112,7 +112,7 @@ class _AlertsPageState extends State<AlertsPage> {
           const SizedBox(width: AppSpacing.xs),
         ],
       ),
-      bottomNavigationBar: const AppBottomNav(currentIndex: 0),
+      bottomNavigationBar: const AppBottomNav(currentIndex: 1),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(AppSpacing.lg, AppSpacing.sm, AppSpacing.lg, AppSpacing.xxl),

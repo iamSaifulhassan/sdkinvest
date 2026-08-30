@@ -14,7 +14,7 @@ class TickerAvatar extends StatelessWidget {
     AppColors.strongBuy,
     AppColors.hold,
     Color(0xff8b5cf6),
-    Color(0xff06b6d4),
+    AppColors.accentCyan,
   ];
 
   /// Rough brand-color approximations for tickers that show up in the

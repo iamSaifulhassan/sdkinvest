@@ -43,6 +43,10 @@ class AppColors {
   /// The interactive accent — active tab, links, primary CTAs.
   static const Color accentBlue = Color(0xff3b7dfb);
 
+  /// Secondary accent (cyan) — used for the ticker-avatar fallback palette
+  /// and neutral "info" alert/price-zone icons.
+  static const Color accentCyan = Color(0xff06b6d4);
+
   // Semantic status colors, matching the SDK Score action pills.
   static const Color strongBuy = Color(0xff1fae64);
   static const Color buy = Color(0xff34d399);

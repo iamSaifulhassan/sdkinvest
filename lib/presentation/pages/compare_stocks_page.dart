@@ -231,11 +231,13 @@ class _EmptyState extends StatelessWidget {
 
 /// Maps the shared [StockConfidence] enum onto the "High/Moderate/Low
 /// Confidence" badge language used specifically on the Compare mockup.
+/// Low uses the same muted tone as the "Provisional" tag on the Stock
+/// Detail SDK Score card so the two screens read consistently.
 ({String label, Color color}) _confidenceTier(StockConfidence confidence) {
   return switch (confidence) {
     StockConfidence.verified => (label: 'High Confidence', color: AppColors.strongBuy),
     StockConfidence.limited => (label: 'Moderate Confidence', color: AppColors.hold),
-    StockConfidence.provisional => (label: 'Low Confidence', color: AppColors.hold),
+    StockConfidence.provisional => (label: 'Low Confidence', color: AppColors.textMuted),
   };
 }
 

@@ -12,6 +12,12 @@
       "runtimeExecutable": "flutter",
       "runtimeArgs": ["run", "-d", "chrome", "--web-port", "8791"],
       "port": 8791
+    },
+    {
+      "name": "sdkinvest-web-3",
+      "runtimeExecutable": "flutter",
+      "runtimeArgs": ["run", "-d", "chrome", "--web-port", "8792"],
+      "port": 8792
     }
   ]
 }
