@@ -42,8 +42,8 @@ class ScoreInsightsCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w600, fontSize: 13),
-                  maxLines: 1,
+                  style: AppTextStyles.body.copyWith(fontWeight: FontWeight.w600, fontSize: 12.5),
+                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),

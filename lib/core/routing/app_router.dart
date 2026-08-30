@@ -5,6 +5,7 @@ import '../../presentation/pages/widget_showcase_page.dart';
 import '../../presentation/pages/placeholder_detail_page.dart';
 import '../../presentation/pages/stock_detail_page.dart';
 import '../../presentation/pages/alerts_page.dart';
+import '../../presentation/pages/compare_stocks_page.dart';
 import 'app_routes.dart';
 
 class AppRouter {
@@ -24,6 +25,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const StockDetailPage());
       case AppRoutes.alerts:
         return MaterialPageRoute(builder: (_) => const AlertsPage());
+      case AppRoutes.compareStocks:
+        return MaterialPageRoute(builder: (_) => const CompareStocksPage());
       default:
         return MaterialPageRoute(builder: (_) => const HomePage());
     }

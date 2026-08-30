@@ -7,4 +7,5 @@ class AppRoutes {
   static const String placeholderDetail = '/placeholder-detail';
   static const String stockDetail = '/stock-detail';
   static const String alerts = '/alerts';
+  static const String compareStocks = '/compare-stocks';
 }

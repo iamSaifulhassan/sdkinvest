@@ -49,17 +49,20 @@ class SdkScoreCard extends StatelessWidget {
               StatusPill(status: status, large: true),
             ],
           ),
-          const SizedBox(height: AppSpacing.lg),
-          Wrap(
-            alignment: WrapAlignment.center,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            spacing: AppSpacing.lg,
-            runSpacing: AppSpacing.sm,
-            children: [
-              _MetaChip(dotColor: AppColors.textMuted, filled: false, label: confidence.label),
-              const _MetaChip(dotColor: AppColors.hold, filled: true, label: 'Low Confidence'),
-              _MetaChip(dotColor: AppColors.accentBlue, filled: true, label: dataCoverageLabel),
-            ],
+          const SizedBox(height: AppSpacing.md),
+          SizedBox(
+            width: double.infinity,
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: AppSpacing.md,
+              runSpacing: 6,
+              children: [
+                _MetaChip(dotColor: AppColors.textMuted, filled: false, label: confidence.label),
+                const _MetaChip(dotColor: AppColors.hold, filled: true, label: 'Low Confidence'),
+                _MetaChip(dotColor: AppColors.accentBlue, filled: true, label: dataCoverageLabel),
+              ],
+            ),
           ),
         ],
       ),
@@ -80,16 +83,16 @@ class _MetaChip extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Container(
-          width: 9,
-          height: 9,
+          width: 7,
+          height: 7,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: filled ? dotColor : Colors.transparent,
-            border: filled ? null : Border.all(color: dotColor, width: 1.5),
+            border: filled ? null : Border.all(color: dotColor, width: 1.3),
           ),
         ),
-        const SizedBox(width: 6),
-        Text(label, style: AppTextStyles.caption.copyWith(fontSize: 13)),
+        const SizedBox(width: 5),
+        Text(label, style: AppTextStyles.caption.copyWith(fontSize: 11)),
       ],
     );
   }

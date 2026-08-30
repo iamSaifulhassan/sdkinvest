@@ -56,6 +56,11 @@ class _Top5View extends StatelessWidget {
               ],
             ),
             const Spacer(),
+            IconButton(
+              tooltip: 'Compare stocks',
+              onPressed: () => Navigator.of(context).pushNamed(AppRoutes.compareStocks),
+              icon: const Icon(Icons.compare_arrows_rounded, color: AppColors.textPrimary),
+            ),
             OutlinedButton.icon(
               onPressed: () => AppFeedback.showSnackBar(context, 'Filters are coming in a later phase'),
               style: OutlinedButton.styleFrom(

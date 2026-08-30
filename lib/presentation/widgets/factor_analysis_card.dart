@@ -76,8 +76,8 @@ class _FactorTile extends StatelessWidget {
         children: [
           Text(
             factor.label,
-            style: AppTextStyles.caption.copyWith(fontSize: 11),
-            maxLines: 1,
+            style: AppTextStyles.caption.copyWith(fontSize: 10.5, height: 1.15),
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
           const SizedBox(height: 4),
