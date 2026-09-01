@@ -1,11 +1,11 @@
 {
-    "name": "sdkinvest",
-    "short_name": "sdkinvest",
+    "name": "SDK Investing",
+    "short_name": "SDK Investing",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#0a1626",
+    "theme_color": "#0a1626",
+    "description": "SDK Score-driven stock research and portfolio tracking.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
