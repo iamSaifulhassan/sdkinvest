@@ -10,7 +10,9 @@ import '../../../logic/alerts/alerts_cubit.dart';
 import '../../widgets/alerts/alert_card.dart';
 import '../../widgets/alerts/alert_summary_tile.dart';
 import '../../widgets/common/app_bottom_nav.dart';
+import '../../widgets/common/app_brand_logo.dart';
 import '../../widgets/common/app_shimmer_list.dart';
+import '../../widgets/common/theme_toggle_button.dart';
 
 /// Alerts & Signals screen — score-change/upgrade-downgrade/price-zone
 /// notifications, filterable by category. Alert data comes from
@@ -39,37 +41,22 @@ class _AlertsView extends StatelessWidget {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         titleSpacing: AppSpacing.lg,
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('SDK', style: AppTextStyles.wordmark),
-            const SizedBox(width: 6),
-            Text(
-              'Investing',
-              style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
-            ),
-          ],
-        ),
+        title: const AppBrandLogo(),
         actions: [
+          // No bell icon here — this already is the notifications screen.
+          const ThemeToggleButton(),
           IconButton(
-            icon: const Icon(
-              Icons.notifications_none_rounded,
-              color: AppColors.textPrimary,
-            ),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.account_circle_outlined,
               color: AppColors.textPrimary,
             ),
             onPressed: () =>
-                Navigator.of(context).pushNamed(AppRoutes.subscription),
+                Navigator.of(context).pushNamed(AppRoutes.profile),
           ),
           const SizedBox(width: AppSpacing.xs),
         ],
       ),
-      bottomNavigationBar: const AppBottomNav(currentIndex: 1),
+      bottomNavigationBar: const AppBottomNav(currentIndex: 2),
       body: SafeArea(
         child: BlocBuilder<AlertsCubit, AlertsState>(
           builder: (context, state) {
@@ -148,7 +135,7 @@ class _AlertsView extends StatelessWidget {
                         ),
                         border: Border.all(color: AppColors.border),
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.filter_alt_rounded,
                         size: 18,
                         color: AppColors.textMuted,

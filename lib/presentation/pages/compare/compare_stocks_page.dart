@@ -65,7 +65,7 @@ class _CompareStocksView extends StatelessWidget {
               final atCapacity = state.selected.length >= CompareCubit.maxSlots;
               return IconButton(
                 tooltip: atCapacity ? 'Comparison is full' : 'Add a stock',
-                icon: const Icon(
+                icon: Icon(
                   Icons.add_circle_outline_rounded,
                   color: AppColors.textPrimary,
                 ),
@@ -78,7 +78,7 @@ class _CompareStocksView extends StatelessWidget {
           const SizedBox(width: AppSpacing.xs),
         ],
       ),
-      bottomNavigationBar: const AppBottomNav(currentIndex: 1),
+      bottomNavigationBar: const AppBottomNav(currentIndex: 2),
       body: SafeArea(
         child: BlocBuilder<CompareCubit, CompareState>(
           builder: (context, state) {

@@ -23,6 +23,7 @@ class HomeState extends Equatable {
     this.alertCount = 0,
     this.top5 = const [],
     this.actionItems = const [],
+    this.recommendations = const [],
   });
 
   final HomeStatus status;
@@ -39,6 +40,10 @@ class HomeState extends Equatable {
   final List<Stock> top5;
   final List<HomeActionItem> actionItems;
 
+  /// Stocks the SDK Score model surfaces as worth a look — separate from
+  /// [top5], which is strictly rank-ordered.
+  final List<Stock> recommendations;
+
   HomeState copyWith({
     HomeStatus? status,
     String? userName,
@@ -53,6 +58,7 @@ class HomeState extends Equatable {
     int? alertCount,
     List<Stock>? top5,
     List<HomeActionItem>? actionItems,
+    List<Stock>? recommendations,
   }) {
     return HomeState(
       status: status ?? this.status,
@@ -68,6 +74,7 @@ class HomeState extends Equatable {
       alertCount: alertCount ?? this.alertCount,
       top5: top5 ?? this.top5,
       actionItems: actionItems ?? this.actionItems,
+      recommendations: recommendations ?? this.recommendations,
     );
   }
 
@@ -86,6 +93,7 @@ class HomeState extends Equatable {
     alertCount,
     top5,
     actionItems,
+    recommendations,
   ];
 }
 
@@ -99,6 +107,36 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   final StockRepository _repository;
+
+  /// Curated separately from [StockRepository.topRanked] — these are
+  /// "worth a look" picks distinct from the strictly rank-ordered Top 5
+  /// list above, matching the "Recommended For You" mockup section.
+  static const _recommendations = [
+    Stock(
+      ticker: 'AMZN',
+      name: 'Amazon.com Inc.',
+      sdkScore: 81,
+      status: StockStatus.buy,
+      confidence: StockConfidence.limited,
+      tagline: 'Cloud + retail margin expansion',
+    ),
+    Stock(
+      ticker: 'TSM',
+      name: 'Taiwan Semiconductor',
+      sdkScore: 85,
+      status: StockStatus.strongBuy,
+      confidence: StockConfidence.limited,
+      tagline: 'Leading foundry for AI chips',
+    ),
+    Stock(
+      ticker: 'GOOGL',
+      name: 'Alphabet Inc.',
+      sdkScore: 79,
+      status: StockStatus.buy,
+      confidence: StockConfidence.provisional,
+      tagline: 'AI search moat, cheap on FCF',
+    ),
+  ];
 
   Future<void> _load() async {
     await Future<void>.delayed(const Duration(milliseconds: 600));
@@ -134,6 +172,7 @@ class HomeCubit extends Cubit<HomeState> {
         strongBuyCount: 7,
         alertCount: 3,
         top5: top5,
+        recommendations: _recommendations,
         actionItems: const [
           HomeActionItem(
             icon: Icons.trending_up_rounded,

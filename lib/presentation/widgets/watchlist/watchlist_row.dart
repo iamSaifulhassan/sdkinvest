@@ -115,11 +115,14 @@ class WatchlistRow extends StatelessWidget {
                   const Spacer(),
                   Icon(indicator.icon, size: 13, color: indicator.color),
                   const SizedBox(width: 3),
-                  Text(
-                    item.indicator.label,
-                    style: AppTextStyles.caption.copyWith(
-                      fontSize: 10,
-                      color: indicator.color,
+                  Flexible(
+                    child: Text(
+                      item.indicator.label,
+                      overflow: TextOverflow.ellipsis,
+                      style: AppTextStyles.caption.copyWith(
+                        fontSize: 10,
+                        color: indicator.color,
+                      ),
                     ),
                   ),
                   Icon(

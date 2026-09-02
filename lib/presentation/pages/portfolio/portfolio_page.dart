@@ -12,6 +12,7 @@ import '../../widgets/portfolio/holdings_table.dart';
 import '../../widgets/common/portfolio_hero_card.dart';
 import '../../widgets/portfolio/rebalancing_insight_card.dart';
 import '../../widgets/common/stat_tile.dart';
+import '../../widgets/common/theme_toggle_button.dart';
 
 /// Portfolio screen — total value + return, allocation breakdown, full
 /// holdings table, and a rebalancing suggestion.
@@ -45,19 +46,20 @@ class _PortfolioView extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.add_circle_outline_rounded,
               color: AppColors.textPrimary,
             ),
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.settings_outlined,
               color: AppColors.textPrimary,
             ),
             onPressed: () {},
           ),
+          const ThemeToggleButton(),
           const SizedBox(width: AppSpacing.xs),
         ],
       ),

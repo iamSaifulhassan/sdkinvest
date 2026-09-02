@@ -12,6 +12,8 @@ import '../../presentation/pages/subscription/subscription_page.dart';
 import '../../presentation/pages/onboarding/onboarding_page.dart';
 import '../../presentation/pages/auth/login_page.dart';
 import '../../presentation/pages/auth/signup_page.dart';
+import '../../presentation/pages/search/search_page.dart';
+import '../../presentation/pages/profile/profile_page.dart';
 import 'app_routes.dart';
 
 class AppRouter {
@@ -46,6 +48,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const LoginPage());
       case AppRoutes.signup:
         return MaterialPageRoute(builder: (_) => const SignupPage());
+      case AppRoutes.search:
+        return MaterialPageRoute(builder: (_) => const SearchPage());
+      case AppRoutes.profile:
+        return MaterialPageRoute(builder: (_) => const ProfilePage());
       default:
         return MaterialPageRoute(builder: (_) => const HomePage());
     }

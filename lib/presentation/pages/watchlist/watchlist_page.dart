@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/routing/app_routes.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../logic/watchlist/watchlist_cubit.dart';
 import '../../widgets/alerts/alert_card.dart';
 import '../../widgets/common/app_bottom_nav.dart';
+import '../../widgets/common/app_brand_logo.dart';
 import '../../widgets/common/app_shimmer_list.dart';
+import '../../widgets/common/profile_avatar_button.dart';
+import '../../widgets/common/theme_toggle_button.dart';
 import '../../widgets/watchlist/watchlist_row.dart';
 
 /// Watchlist screen — searchable, filterable list of tracked stocks with
@@ -36,36 +40,26 @@ class _WatchlistView extends StatelessWidget {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         titleSpacing: AppSpacing.lg,
-        title: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text('SDK', style: AppTextStyles.wordmark),
-            const SizedBox(width: 6),
-            Text(
-              'Investing',
-              style: AppTextStyles.body.copyWith(color: AppColors.textPrimary),
-            ),
-          ],
-        ),
+        title: const AppBrandLogo(),
         actions: [
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.add_circle_outline_rounded,
               color: AppColors.textPrimary,
             ),
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(
-              Icons.search_rounded,
-              color: AppColors.textPrimary,
-            ),
-            onPressed: () {},
+            icon: Icon(Icons.search_rounded, color: AppColors.textPrimary),
+            onPressed: () =>
+                Navigator.of(context).pushNamed(AppRoutes.search),
           ),
+          const ThemeToggleButton(),
+          const ProfileAvatarButton(),
           const SizedBox(width: AppSpacing.xs),
         ],
       ),
-      bottomNavigationBar: const AppBottomNav(currentIndex: 1),
+      bottomNavigationBar: const AppBottomNav(currentIndex: 2),
       body: SafeArea(
         child: BlocBuilder<WatchlistCubit, WatchlistState>(
           builder: (context, state) {

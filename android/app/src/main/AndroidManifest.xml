@@ -33,6 +33,11 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <!-- Camera capture for the profile-photo picker. Gallery selection uses
+         the Android Photo Picker on modern targets, which needs no
+         declared permission; this covers the "Take Photo" option. -->
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and
          https://developer.android.com/reference/android/content/Intent#ACTION_PROCESS_TEXT.

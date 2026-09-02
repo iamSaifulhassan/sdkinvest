@@ -38,7 +38,7 @@ class SocialSignInButton extends StatelessWidget {
         onPressed: onPressed,
         style: OutlinedButton.styleFrom(
           foregroundColor: AppColors.textPrimary,
-          side: const BorderSide(color: AppColors.border),
+          side: BorderSide(color: AppColors.border),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
           ),
@@ -54,11 +54,14 @@ class SocialSignInButton extends StatelessWidget {
               ),
             },
             const SizedBox(width: AppSpacing.sm),
-            Text(
-              _label,
-              style: AppTextStyles.body.copyWith(
-                fontWeight: FontWeight.w600,
-                fontSize: 13.5,
+            Flexible(
+              child: Text(
+                _label,
+                overflow: TextOverflow.ellipsis,
+                style: AppTextStyles.body.copyWith(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13.5,
+                ),
               ),
             ),
           ],

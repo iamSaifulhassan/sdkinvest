@@ -8,6 +8,7 @@ import '../../../core/theme/app_text_styles.dart';
 import '../../../logic/auth/auth_cubit.dart';
 import '../../../logic/auth/login_cubit.dart';
 import '../../widgets/auth/social_sign_in_button.dart';
+import '../../widgets/common/app_brand_logo.dart';
 import '../../widgets/common/app_feedback.dart';
 import '../../widgets/common/app_primary_button.dart';
 import '../../widgets/common/app_text_field.dart';
@@ -63,25 +64,9 @@ class _LoginViewState extends State<_LoginView> {
                 AppSpacing.xl,
               ),
               children: [
-                Row(
-                  children: [
-                    Text('SDK', style: AppTextStyles.wordmark),
-                    const SizedBox(width: 6),
-                    Text(
-                      'Investing',
-                      style: AppTextStyles.body.copyWith(
-                        color: AppColors.textPrimary,
-                      ),
-                    ),
-                  ],
-                ),
+                const Center(child: AppBrandLogo(size: 64)),
                 const SizedBox(height: AppSpacing.xxl),
                 Text('Welcome back', style: AppTextStyles.headline),
-                const SizedBox(height: 4),
-                Text(
-                  'Log in to see your latest SDK Scores.',
-                  style: AppTextStyles.caption.copyWith(fontSize: 13),
-                ),
                 const SizedBox(height: AppSpacing.xl),
                 AppTextField(
                   label: 'Email',

@@ -8,7 +8,10 @@ import '../../../core/theme/app_text_styles.dart';
 import '../../../logic/home/home_cubit.dart';
 import '../../widgets/home/action_item_tile.dart';
 import '../../widgets/common/app_bottom_nav.dart';
+import '../../widgets/common/app_brand_logo.dart';
 import '../../widgets/common/app_loading_indicator.dart';
+import '../../widgets/common/profile_avatar_button.dart';
+import '../../widgets/common/theme_toggle_button.dart';
 import '../../widgets/home/cream_section_card.dart';
 import '../../widgets/common/portfolio_hero_card.dart';
 import '../../widgets/common/stat_tile.dart';
@@ -34,28 +37,12 @@ class _HomeView extends StatelessWidget {
         surfaceTintColor: Colors.transparent,
         elevation: 0,
         titleSpacing: AppSpacing.lg,
-        title: FittedBox(
-          fit: BoxFit.scaleDown,
-          alignment: Alignment.centerLeft,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('SDK', style: AppTextStyles.wordmark),
-              const SizedBox(width: 6),
-              Text(
-                'Investing',
-                style: AppTextStyles.body.copyWith(
-                  color: AppColors.textPrimary,
-                ),
-              ),
-            ],
-          ),
-        ),
+        title: const AppBrandLogo(),
         actions: [
           Stack(
             children: [
               IconButton(
-                icon: const Icon(
+                icon: Icon(
                   Icons.notifications_none_rounded,
                   color: AppColors.textPrimary,
                 ),
@@ -68,7 +55,7 @@ class _HomeView extends StatelessWidget {
                 child: Container(
                   width: 8,
                   height: 8,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: AppColors.trim,
                     shape: BoxShape.circle,
                   ),
@@ -76,14 +63,8 @@ class _HomeView extends StatelessWidget {
               ),
             ],
           ),
-          IconButton(
-            icon: const Icon(
-              Icons.account_circle_outlined,
-              color: AppColors.textPrimary,
-            ),
-            onPressed: () =>
-                Navigator.of(context).pushNamed(AppRoutes.subscription),
-          ),
+          const ThemeToggleButton(),
+          const ProfileAvatarButton(),
           const SizedBox(width: AppSpacing.xs),
         ],
       ),
@@ -176,6 +157,21 @@ class _HomeView extends StatelessWidget {
                       ],
                     ),
                   ),
+                  if (state.recommendations.isNotEmpty) ...[
+                    const SizedBox(height: AppSpacing.lg),
+                    CreamSectionCard(
+                      title: 'Recommended For You',
+                      onViewAll: () =>
+                          Navigator.of(context).pushNamed(AppRoutes.search),
+                      child: StockListCard(
+                        stocks: state.recommendations,
+                        showTagline: true,
+                        onTapStock: (_) => Navigator.of(
+                          context,
+                        ).pushNamed(AppRoutes.stockDetail),
+                      ),
+                    ),
+                  ],
                 ],
               ),
             );

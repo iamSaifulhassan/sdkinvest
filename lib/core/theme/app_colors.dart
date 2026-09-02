@@ -1,46 +1,58 @@
 import 'package:flutter/material.dart';
 
-/// Design tokens extracted from the SDK Investing mockups (design-system
-/// PDF: Home, Stock Detail, Top 5, Portfolio, Watchlist, Compare, Alerts,
-/// Academy, Subscription). Deep navy app chrome with light content cards
-/// for data lists, plus color-coded action pills (Strong Buy/Buy/Hold/Trim).
-/// Nothing outside this file should hardcode a color.
+/// Design tokens for the SDK Investing app, in both a dark-navy and a
+/// light palette. Every color in the app is read through this class rather
+/// than hardcoded, so [ThemeCubit] flipping [isDark] and forcing a full
+/// widget-tree rebuild (see `main.dart`) is all it takes to re-theme every
+/// screen — nothing outside this file should hardcode a color.
 class AppColors {
   const AppColors._();
 
-  /// App background — deep navy, near-black.
-  static const Color navyDeep = Color(0xff0a1626);
+  /// Set by `main.dart` from [ThemeCubit]'s state before every rebuild.
+  /// Deliberately mutable (not a const/final palette) so a single flip
+  /// re-points every getter below without threading a palette object
+  /// through every widget in the tree.
+  static bool isDark = true;
 
-  /// Cards/panels that sit directly on the navy background (hero card,
-  /// stat pills, bottom nav).
-  static const Color navyCard = Color(0xff132842);
+  // ---------------------------------------------------------------------
+  // App background
+  // ---------------------------------------------------------------------
 
-  /// Elevated surface on navy — dialogs, sheets.
-  static const Color navyCardAlt = Color(0xff1a3455);
+  /// App background.
+  static Color get navyDeep => isDark ? const Color(0xff0a1626) : const Color(0xfff4f6fa);
 
-  /// Hairline borders on dark cards.
-  static const Color navyBorder = Color(0xff223753);
+  /// Cards/panels that sit directly on the background (hero card, stat
+  /// pills, bottom nav).
+  static Color get navyCard => isDark ? const Color(0xff132842) : const Color(0xffffffff);
+
+  /// Elevated surface — dialogs, sheets.
+  static Color get navyCardAlt => isDark ? const Color(0xff1a3455) : const Color(0xffeef1f7);
+
+  /// Hairline borders on [navyCard]/[navyCardAlt].
+  static Color get navyBorder => isDark ? const Color(0xff223753) : const Color(0xffe0e5ee);
 
   /// Light content cards (Top 5 list, Action Center, list rows) that float
-  /// over the dark background.
-  static const Color cream = Color(0xfff5f6f8);
+  /// over the background.
+  static Color get cream => isDark ? const Color(0xfff5f6f8) : const Color(0xffffffff);
 
-  /// Hairline row dividers within cream cards.
-  static const Color creamBorder = Color(0xffe7e9ee);
+  /// Hairline row dividers within [cream] cards.
+  static Color get creamBorder => isDark ? const Color(0xffe7e9ee) : const Color(0xffe7e9ee);
 
-  /// Primary text on the navy background.
-  static const Color white = Color(0xffffffff);
+  /// Primary text on the app background.
+  static Color get white => isDark ? const Color(0xffffffff) : const Color(0xff17233a);
 
-  /// Muted/secondary text on the navy background.
-  static const Color slate = Color(0xff8a97ab);
+  /// Muted/secondary text on the app background.
+  static Color get slate => isDark ? const Color(0xff8a97ab) : const Color(0xff64748b);
 
-  /// Primary text on light cream cards.
+  /// Primary text on light [cream] cards — already dark-on-light in both
+  /// themes, so it doesn't need to flip.
   static const Color ink = Color(0xff17233a);
 
-  /// Muted/secondary text on light cream cards.
+  /// Muted/secondary text on light [cream] cards.
   static const Color inkMuted = Color(0xff6b7686);
 
-  /// The interactive accent — active tab, links, primary CTAs.
+  /// The interactive accent — active tab, links, primary CTAs. Constant
+  /// across both themes so the brand color reads the same either way.
   static const Color accentBlue = Color(0xff3b7dfb);
 
   /// Secondary accent (cyan) — used for the ticker-avatar fallback palette
@@ -51,7 +63,12 @@ class AppColors {
   /// allocation slice, and a couple of decorative icon colors.
   static const Color accentPurple = Color(0xff8b5cf6);
 
-  // Semantic status colors, matching the SDK Score action pills.
+  /// Warm gold used for the light-mode ("sun") theme-toggle glyph, matching
+  /// the reference design. Constant across both themes.
+  static const Color gold = Color(0xfff5b942);
+
+  // Semantic status colors, matching the SDK Score action pills. Constant
+  // across themes — buy/sell meaning shouldn't shift with light/dark.
   static const Color strongBuy = Color(0xff1fae64);
   static const Color buy = Color(0xff34d399);
   static const Color hold = Color(0xfff5a524);
@@ -63,13 +80,13 @@ class AppColors {
   /// Negative figures.
   static const Color loss = Color(0xffef4b4b);
 
-  static const Color background = navyDeep;
-  static const Color surface = navyCard;
-  static const Color surfaceAlt = navyCardAlt;
-  static const Color border = navyBorder;
-  static const Color textPrimary = white;
-  static const Color textSecondary = white;
-  static const Color textMuted = slate;
+  static Color get background => navyDeep;
+  static Color get surface => navyCard;
+  static Color get surfaceAlt => navyCardAlt;
+  static Color get border => navyBorder;
+  static Color get textPrimary => white;
+  static Color get textSecondary => white;
+  static Color get textMuted => slate;
   static const Color primary = accentBlue;
   static const Color accent = accentBlue;
   static const Color success = gain;

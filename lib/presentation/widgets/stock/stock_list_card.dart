@@ -32,7 +32,7 @@ class StockListCard extends StatelessWidget {
             onTap: onTapStock == null ? null : () => onTapStock!(stocks[i]),
           ),
           if (i != stocks.length - 1)
-            const Divider(height: 1, color: AppColors.creamBorder),
+            Divider(height: 1, color: AppColors.creamBorder),
         ],
       ],
     );

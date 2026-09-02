@@ -8,6 +8,7 @@ import '../../../logic/learn/learn_cubit.dart';
 import '../../widgets/learn/academy_hero_card.dart';
 import '../../widgets/common/app_bottom_nav.dart';
 import '../../widgets/common/app_shimmer_list.dart';
+import '../../widgets/common/theme_toggle_button.dart';
 import '../../widgets/learn/course_card.dart';
 import '../../widgets/learn/quick_lesson_tile.dart';
 
@@ -39,16 +40,17 @@ class _LearnView extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.bookmark_border_rounded,
               color: AppColors.textPrimary,
             ),
             onPressed: () {},
           ),
+          const ThemeToggleButton(),
           const SizedBox(width: AppSpacing.xs),
         ],
       ),
-      bottomNavigationBar: const AppBottomNav(currentIndex: 4),
+      bottomNavigationBar: const AppBottomNav(currentIndex: 5),
       body: SafeArea(
         child: BlocBuilder<LearnCubit, LearnState>(
           builder: (context, state) {

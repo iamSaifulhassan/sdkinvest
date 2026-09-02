@@ -9,6 +9,7 @@ import '../../../logic/auth/auth_cubit.dart';
 import '../../../logic/auth/login_cubit.dart' show FormStatus;
 import '../../../logic/auth/signup_cubit.dart';
 import '../../widgets/auth/social_sign_in_button.dart';
+import '../../widgets/common/app_brand_logo.dart';
 import '../../widgets/common/app_feedback.dart';
 import '../../widgets/common/app_primary_button.dart';
 import '../../widgets/common/app_text_field.dart';
@@ -77,6 +78,8 @@ class _SignupViewState extends State<_SignupView> {
                 AppSpacing.xl,
               ),
               children: [
+                const Center(child: AppBrandLogo(size: 56)),
+                const SizedBox(height: AppSpacing.lg),
                 Text(
                   'Create your account',
                   style: AppTextStyles.headline.copyWith(fontSize: 24),

@@ -50,7 +50,7 @@ class StockDetailPage extends StatelessWidget {
           Stack(
             children: [
               IconButton(
-                icon: const Icon(
+                icon: Icon(
                   Icons.notifications_none_rounded,
                   color: AppColors.textPrimary,
                 ),
@@ -63,7 +63,7 @@ class StockDetailPage extends StatelessWidget {
                 child: Container(
                   width: 8,
                   height: 8,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     color: AppColors.trim,
                     shape: BoxShape.circle,
                   ),
@@ -72,17 +72,17 @@ class StockDetailPage extends StatelessWidget {
             ],
           ),
           IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.account_circle_outlined,
               color: AppColors.textPrimary,
             ),
             onPressed: () =>
-                Navigator.of(context).pushNamed(AppRoutes.subscription),
+                Navigator.of(context).pushNamed(AppRoutes.profile),
           ),
           const SizedBox(width: AppSpacing.xs),
         ],
       ),
-      bottomNavigationBar: const AppBottomNav(currentIndex: 1),
+      bottomNavigationBar: const AppBottomNav(currentIndex: 2),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(

@@ -62,7 +62,7 @@ class _Top5View extends StatelessWidget {
               tooltip: 'Compare stocks',
               onPressed: () =>
                   Navigator.of(context).pushNamed(AppRoutes.compareStocks),
-              icon: const Icon(
+              icon: Icon(
                 Icons.compare_arrows_rounded,
                 color: AppColors.textPrimary,
               ),
@@ -74,7 +74,7 @@ class _Top5View extends StatelessWidget {
               ),
               style: OutlinedButton.styleFrom(
                 foregroundColor: AppColors.textPrimary,
-                side: const BorderSide(color: AppColors.border),
+                side: BorderSide(color: AppColors.border),
                 padding: const EdgeInsets.symmetric(
                   horizontal: AppSpacing.sm,
                   vertical: 6,
@@ -91,7 +91,7 @@ class _Top5View extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: const AppBottomNav(currentIndex: 2),
+      bottomNavigationBar: const AppBottomNav(currentIndex: 4),
       body: SafeArea(
         child: BlocBuilder<Top5Cubit, Top5State>(
           builder: (context, state) {

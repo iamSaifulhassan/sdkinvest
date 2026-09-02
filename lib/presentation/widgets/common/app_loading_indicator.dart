@@ -64,11 +64,7 @@ class _AppShimmerBoxState extends State<AppShimmerBox>
             gradient: LinearGradient(
               begin: Alignment(-1 + _controller.value * 2, 0),
               end: Alignment(1 + _controller.value * 2, 0),
-              colors: const [
-                AppColors.surface,
-                AppColors.border,
-                AppColors.surface,
-              ],
+              colors: [AppColors.surface, AppColors.border, AppColors.surface],
             ),
           ),
         );

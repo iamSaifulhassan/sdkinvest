@@ -42,7 +42,7 @@ class _SubscriptionView extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.close_rounded, color: AppColors.textPrimary),
+            icon: Icon(Icons.close_rounded, color: AppColors.textPrimary),
             onPressed: () => Navigator.of(context).maybePop(),
           ),
           const SizedBox(width: AppSpacing.xs),
