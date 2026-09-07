@@ -15,4 +15,10 @@ class AppRoutes {
   static const String signup = '/signup';
   static const String search = '/search';
   static const String profile = '/profile';
+  static const String disclaimer = '/disclaimer';
+  static const String terms = '/terms';
+  static const String privacyPolicy = '/privacy-policy';
+  static const String faq = '/faq';
+  static const String contactSupport = '/contact';
+  static const String checkout = '/checkout';
 }

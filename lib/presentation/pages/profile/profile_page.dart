@@ -18,8 +18,8 @@ import '../../widgets/common/app_primary_button.dart';
 import '../../widgets/common/app_text_field.dart';
 import '../../widgets/common/theme_toggle_button.dart';
 
-/// Profile screen — account summary, subscription status, personal info,
-/// change-password form, and account deletion.
+/// Profile screen — account summary, subscription status, editable personal
+/// info, change-password form, support/legal links, and account deletion.
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
@@ -40,12 +40,27 @@ class _ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<_ProfileView> {
+  late final TextEditingController _nameController;
+  late final TextEditingController _emailController;
   final _currentPasswordController = TextEditingController();
   final _newPasswordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    // Seeded once from the session rather than watched, so typing isn't
+    // clobbered by an unrelated AuthCubit rebuild. Saving pushes the edits
+    // back to AuthCubit, which keeps the two in sync from then on.
+    final user = context.read<AuthCubit>().state.user;
+    _nameController = TextEditingController(text: user?.name ?? '');
+    _emailController = TextEditingController(text: user?.email ?? '');
+  }
+
+  @override
   void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
     _currentPasswordController.dispose();
     _newPasswordController.dispose();
     _confirmPasswordController.dispose();
@@ -82,15 +97,27 @@ class _ProfileViewState extends State<_ProfileView> {
       bottomNavigationBar: const AppBottomNav(currentIndex: 0),
       body: SafeArea(
         child: BlocListener<ProfileCubit, ProfileState>(
+          listenWhen: (previous, current) =>
+              previous.passwordStatus != current.passwordStatus ||
+              previous.profileStatus != current.profileStatus,
           listener: (context, state) {
-            if (state.status == FormStatus.success) {
+            if (state.profileStatus == FormStatus.success &&
+                state.savedUser != null) {
+              context.read<AuthCubit>().profileUpdated(state.savedUser!);
+              AppFeedback.showSnackBar(context, 'Profile updated.');
+            } else if (state.profileStatus == FormStatus.failure &&
+                state.profileError != null) {
+              AppFeedback.showSnackBar(context, state.profileError!);
+            }
+
+            if (state.passwordStatus == FormStatus.success) {
               _currentPasswordController.clear();
               _newPasswordController.clear();
               _confirmPasswordController.clear();
               AppFeedback.showSnackBar(context, 'Password updated.');
-            } else if (state.status == FormStatus.failure &&
-                state.errorMessage != null) {
-              AppFeedback.showSnackBar(context, state.errorMessage!);
+            } else if (state.passwordStatus == FormStatus.failure &&
+                state.passwordError != null) {
+              AppFeedback.showSnackBar(context, state.passwordError!);
             }
           },
           child: ListView(
@@ -101,7 +128,10 @@ class _ProfileViewState extends State<_ProfileView> {
               AppSpacing.xxl,
             ),
             children: [
-              Text('My Profile', style: AppTextStyles.headline.copyWith(fontSize: 26)),
+              Text(
+                'My Profile',
+                style: AppTextStyles.headline.copyWith(fontSize: 26),
+              ),
               const SizedBox(height: 4),
               Text(
                 'Manage your personal information and account security.',
@@ -236,9 +266,9 @@ class _ProfileViewState extends State<_ProfileView> {
                     const SizedBox(height: AppSpacing.md),
                     AppPrimaryButton(
                       label: 'Upgrade Plan',
-                      onPressed: () => Navigator.of(
-                        context,
-                      ).pushNamed(AppRoutes.subscription),
+                      onPressed: () =>
+                          Navigator.of(context)
+                              .pushNamed(AppRoutes.subscription),
                     ),
                   ],
                 ),
@@ -266,9 +296,40 @@ class _ProfileViewState extends State<_ProfileView> {
                       ],
                     ),
                     const SizedBox(height: AppSpacing.md),
-                    _InfoRow(label: 'Full name', value: user?.name ?? '—'),
-                    const SizedBox(height: AppSpacing.sm),
-                    _InfoRow(label: 'Email', value: user?.email ?? '—'),
+                    AppTextField(
+                      label: 'Full Name',
+                      hint: 'Your full name',
+                      controller: _nameController,
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      autofillHints: const [AutofillHints.name],
+                    ),
+                    const SizedBox(height: AppSpacing.md),
+                    AppTextField(
+                      label: 'Email Address',
+                      hint: 'you@example.com',
+                      controller: _emailController,
+                      prefixIcon: Icons.mail_outline_rounded,
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.done,
+                      autofillHints: const [AutofillHints.email],
+                    ),
+                    const SizedBox(height: AppSpacing.md),
+                    BlocBuilder<ProfileCubit, ProfileState>(
+                      buildWhen: (previous, current) =>
+                          previous.profileStatus != current.profileStatus,
+                      builder: (context, state) {
+                        return _SubmitButton(
+                          label: 'Save Changes',
+                          busy: state.profileStatus == FormStatus.submitting,
+                          onPressed: () =>
+                              context.read<ProfileCubit>().saveProfile(
+                                name: _nameController.text,
+                                email: _emailController.text,
+                              ),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -341,58 +402,28 @@ class _ProfileViewState extends State<_ProfileView> {
                     ),
                     const SizedBox(height: AppSpacing.md),
                     BlocBuilder<ProfileCubit, ProfileState>(
+                      buildWhen: (previous, current) =>
+                          previous.passwordStatus != current.passwordStatus,
                       builder: (context, state) {
-                        return Align(
-                          alignment: Alignment.centerRight,
-                          child: SizedBox(
-                            width: 200,
-                            child: ElevatedButton(
-                              onPressed: state.status == FormStatus.submitting
-                                  ? null
-                                  : () => context
-                                        .read<ProfileCubit>()
-                                        .updatePassword(
-                                          currentPassword:
-                                              _currentPasswordController.text,
-                                          newPassword:
-                                              _newPasswordController.text,
-                                          confirmPassword:
-                                              _confirmPasswordController.text,
-                                        ),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.accentBlue,
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: AppSpacing.md,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    AppSpacing.radiusMd,
-                                  ),
-                                ),
+                        return _SubmitButton(
+                          label: 'Update Password',
+                          busy: state.passwordStatus == FormStatus.submitting,
+                          onPressed: () =>
+                              context.read<ProfileCubit>().updatePassword(
+                                currentPassword:
+                                    _currentPasswordController.text,
+                                newPassword: _newPasswordController.text,
+                                confirmPassword:
+                                    _confirmPasswordController.text,
                               ),
-                              child: state.status == FormStatus.submitting
-                                  ? const SizedBox(
-                                      width: 18,
-                                      height: 18,
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 2.2,
-                                        color: Colors.white,
-                                      ),
-                                    )
-                                  : Text(
-                                      'Update Password',
-                                      style: AppTextStyles.button.copyWith(
-                                        fontSize: 13.5,
-                                      ),
-                                    ),
-                            ),
-                          ),
                         );
                       },
                     ),
                   ],
                 ),
               ),
+              const SizedBox(height: AppSpacing.md),
+              const _SupportAndLegalCard(),
               const SizedBox(height: AppSpacing.md),
               Container(
                 padding: const EdgeInsets.all(AppSpacing.md),
@@ -477,7 +508,9 @@ class _ProfileViewState extends State<_ProfileView> {
       context: context,
       backgroundColor: AppColors.surfaceAlt,
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(AppSpacing.radiusLg)),
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(AppSpacing.radiusLg),
+        ),
       ),
       builder: (sheetContext) {
         return SafeArea(
@@ -550,14 +583,169 @@ class _ProfileViewState extends State<_ProfileView> {
     final confirmed = await AppFeedback.showConfirmDialog(
       context,
       title: 'Delete account?',
-      message:
-          'This permanently deletes your account and all data. This cannot be undone.',
+      message: 'This permanently deletes your account and all data. This cannot be undone.',
       confirmLabel: 'Delete',
     );
     if (!context.mounted || !confirmed) return;
     AppFeedback.showSnackBar(
       context,
       'Account deletion isn\'t available in this preview build.',
+    );
+  }
+}
+
+/// Right-aligned accent submit button with an inline spinner — shared by
+/// this screen's two forms so they stay visually identical.
+class _SubmitButton extends StatelessWidget {
+  const _SubmitButton({
+    required this.label,
+    required this.busy,
+    required this.onPressed,
+  });
+
+  final String label;
+  final bool busy;
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: SizedBox(
+        width: 200,
+        child: ElevatedButton(
+          onPressed: busy ? null : onPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.accentBlue,
+            padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+            ),
+          ),
+          child: busy
+              ? const SizedBox(
+                  width: 18,
+                  height: 18,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2.2,
+                    color: Colors.white,
+                  ),
+                )
+              : Text(
+                  label,
+                  style: AppTextStyles.button.copyWith(fontSize: 13.5),
+                ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Links out to the policy and help screens — the app-side equivalent of
+/// the website footer's Explore/Legal columns.
+class _SupportAndLegalCard extends StatelessWidget {
+  const _SupportAndLegalCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return _SectionCard(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.help_outline_rounded,
+                size: 18,
+                color: AppColors.accentBlue,
+              ),
+              const SizedBox(width: AppSpacing.xs),
+              Expanded(
+                child: Text(
+                  'Support & Legal',
+                  style: AppTextStyles.title.copyWith(fontSize: 15),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpacing.sm),
+          _LinkTile(
+            icon: Icons.support_agent_rounded,
+            label: 'Contact & Support',
+            route: AppRoutes.contactSupport,
+          ),
+          _LinkTile(
+            icon: Icons.quiz_outlined,
+            label: 'FAQ',
+            route: AppRoutes.faq,
+          ),
+          _LinkTile(
+            icon: Icons.gavel_rounded,
+            label: 'Disclaimer',
+            route: AppRoutes.disclaimer,
+          ),
+          _LinkTile(
+            icon: Icons.description_outlined,
+            label: 'Terms & Conditions',
+            route: AppRoutes.terms,
+          ),
+          _LinkTile(
+            icon: Icons.privacy_tip_outlined,
+            label: 'Privacy Policy',
+            route: AppRoutes.privacyPolicy,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LinkTile extends StatelessWidget {
+  const _LinkTile({
+    required this.icon,
+    required this.label,
+    required this.route,
+  });
+
+  final IconData icon;
+  final String label;
+  final String route;
+
+  @override
+  Widget build(BuildContext context) {
+    // The enclosing _SectionCard paints its background with a BoxDecoration,
+    // which would hide a ripple drawn on the Scaffold's Material below it.
+    // A transparent Material here sits above that background instead.
+    return Material(
+      type: MaterialType.transparency,
+      child: InkWell(
+        onTap: () => Navigator.of(context).pushNamed(route),
+        borderRadius: BorderRadius.circular(AppSpacing.radiusSm),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
+          child: Row(
+            children: [
+              Icon(icon, size: 17, color: AppColors.textMuted),
+              const SizedBox(width: AppSpacing.sm),
+              Expanded(
+                child: Text(
+                  label,
+                  style: AppTextStyles.body.copyWith(
+                    color: AppColors.textPrimary,
+                    fontSize: 13.5,
+                  ),
+                ),
+              ),
+              Icon(
+                Icons.chevron_right_rounded,
+                size: 18,
+                color: AppColors.textMuted,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -578,35 +766,6 @@ class _SectionCard extends StatelessWidget {
         border: Border.all(color: AppColors.border),
       ),
       child: child,
-    );
-  }
-}
-
-class _InfoRow extends StatelessWidget {
-  const _InfoRow({required this.label, required this.value});
-
-  final String label;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Text(label, style: AppTextStyles.caption.copyWith(fontSize: 12.5)),
-        ),
-        Flexible(
-          child: Text(
-            value,
-            textAlign: TextAlign.right,
-            overflow: TextOverflow.ellipsis,
-            style: AppTextStyles.body.copyWith(
-              color: AppColors.textPrimary,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

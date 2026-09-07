@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/routing/app_routes.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_spacing.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../data/models/subscription/subscription_plan.dart';
 import '../../../logic/subscription/subscription_cubit.dart';
 import '../../widgets/common/app_feedback.dart';
+import '../checkout/checkout_page.dart';
 
 /// Subscription screen — plan comparison + billing-cycle toggle + upgrade CTA.
 /// Presented as a full-screen modal (closed via the leading X), matching the
@@ -66,7 +68,14 @@ class _SubscriptionView extends StatelessWidget {
                 const SizedBox(height: AppSpacing.lg),
                 for (var i = 0; i < state.plans.length; i++) ...[
                   if (i != 0) const SizedBox(height: AppSpacing.md),
-                  _PlanCard(plan: state.plans[i], cycle: state.cycle),
+                  _PlanCard(
+                    plan: state.plans[i],
+                    cycle: state.cycle,
+                    selected: state.plans[i].name == state.selectedPlanName,
+                    onTap: () => context.read<SubscriptionCubit>().selectPlan(
+                      state.plans[i].name,
+                    ),
+                  ),
                 ],
                 const SizedBox(height: AppSpacing.lg),
                 Container(
@@ -123,42 +132,7 @@ class _SubscriptionView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: AppSpacing.lg),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () => AppFeedback.showSnackBar(
-                      context,
-                      'Free trial checkout is coming in a later phase',
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.accentBlue,
-                      padding: const EdgeInsets.symmetric(
-                        vertical: AppSpacing.md,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                          AppSpacing.radiusMd,
-                        ),
-                      ),
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'Start Free Trial',
-                          style: AppTextStyles.button.copyWith(fontSize: 15),
-                        ),
-                        Text(
-                          '7-day free trial • Cancel anytime',
-                          style: AppTextStyles.caption.copyWith(
-                            color: Colors.white.withValues(alpha: 0.85),
-                            fontSize: 11,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                _CheckoutButton(plan: state.selectedPlan, cycle: state.cycle),
                 const SizedBox(height: AppSpacing.md),
                 Text(
                   'Secure payments. Auto-renewing subscriptions. You can manage or cancel anytime in Account Settings.',
@@ -290,11 +264,21 @@ class _ToggleOption extends StatelessWidget {
   }
 }
 
+/// A tappable pricing tier. Tapping selects it — the selected card takes a
+/// heavier accent border and a check, and drives the checkout button below
+/// the list.
 class _PlanCard extends StatelessWidget {
-  const _PlanCard({required this.plan, required this.cycle});
+  const _PlanCard({
+    required this.plan,
+    required this.cycle,
+    required this.selected,
+    required this.onTap,
+  });
 
   final SubscriptionPlan plan;
   final BillingCycle cycle;
+  final bool selected;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -306,115 +290,205 @@ class _PlanCard extends StatelessWidget {
         ? plan.billingNote
         : (plan.name == 'Free' ? '' : '/month');
 
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.md),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
-        border: Border.all(
-          color: plan.highlighted ? AppColors.accentBlue : AppColors.border,
-          width: plan.highlighted ? 1.6 : 1,
+    // Selection outranks `highlighted` for the border treatment, so exactly
+    // one card ever reads as "chosen" — otherwise the RECOMMENDED card would
+    // keep its accent border while a different plan was selected.
+    final borderColor = selected
+        ? AppColors.accentBlue
+        : (plan.highlighted ? AppColors.accentBlue : AppColors.border);
+
+    return GestureDetector(
+      onTap: onTap,
+      behavior: HitTestBehavior.opaque,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        padding: const EdgeInsets.all(AppSpacing.md),
+        decoration: BoxDecoration(
+          color: selected
+              ? AppColors.accentBlue.withValues(alpha: 0.08)
+              : AppColors.surface,
+          borderRadius: BorderRadius.circular(AppSpacing.radiusLg),
+          border: Border.all(
+            color: borderColor,
+            width: selected ? 2 : (plan.highlighted ? 1.6 : 1),
+          ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Text(
-                  plan.name,
-                  style: AppTextStyles.title.copyWith(fontSize: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          plan.name,
+                          style: AppTextStyles.title.copyWith(fontSize: 16),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      if (selected) ...[
+                        const SizedBox(width: 6),
+                        Icon(
+                          Icons.check_circle_rounded,
+                          size: 16,
+                          color: AppColors.accentBlue,
+                        ),
+                      ],
+                    ],
+                  ),
                 ),
-              ),
-              if (plan.badgeLabel != null)
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 3,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.accentBlue,
-                    borderRadius: BorderRadius.circular(999),
-                  ),
-                  child: Text(
-                    plan.badgeLabel!,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 9,
-                      fontWeight: FontWeight.w700,
+                if (plan.badgeLabel != null)
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 3,
                     ),
-                  ),
-                ),
-            ],
-          ),
-          const SizedBox(height: 4),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
-            children: [
-              Text(
-                price,
-                style: AppTextStyles.displayFigure.copyWith(fontSize: 26),
-              ),
-              if (priceSuffix.isNotEmpty) ...[
-                const SizedBox(width: 4),
-                Text(
-                  priceSuffix,
-                  style: AppTextStyles.caption.copyWith(fontSize: 11),
-                ),
-              ],
-              const Spacer(),
-              if (plan.savingsNote != null && cycle == BillingCycle.annual)
-                Text(
-                  plan.savingsNote!,
-                  style: AppTextStyles.caption.copyWith(
-                    color: AppColors.strongBuy,
-                    fontSize: 10.5,
-                    fontWeight: FontWeight.w600,
-                  ),
-                )
-              // Founding Member's billingNote ("/year") only makes sense
-              // paired with the annual price — the monthly price already
-              // reads "$16/mo" on its own, so show nothing extra here.
-              else if (plan.name != 'Founding Member' ||
-                  cycle == BillingCycle.annual)
-                Text(
-                  plan.billingNote,
-                  style: AppTextStyles.caption.copyWith(fontSize: 11),
-                ),
-            ],
-          ),
-          const SizedBox(height: AppSpacing.sm),
-          for (final feature in plan.features)
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 2),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.check_circle_rounded,
-                    size: 14,
-                    color: plan.highlighted
-                        ? AppColors.accentBlue
-                        : AppColors.strongBuy,
-                  ),
-                  const SizedBox(width: 6),
-                  Expanded(
+                    decoration: BoxDecoration(
+                      color: AppColors.accentBlue,
+                      borderRadius: BorderRadius.circular(999),
+                    ),
                     child: Text(
-                      feature,
-                      style: AppTextStyles.caption.copyWith(
-                        fontSize: 12,
-                        color: AppColors.textPrimary,
+                      plan.badgeLabel!,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 9,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
+              ],
+            ),
+            const SizedBox(height: 4),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              textBaseline: TextBaseline.alphabetic,
+              children: [
+                Text(
+                  price,
+                  style: AppTextStyles.displayFigure.copyWith(fontSize: 26),
+                ),
+                if (priceSuffix.isNotEmpty) ...[
+                  const SizedBox(width: 4),
+                  Text(
+                    priceSuffix,
+                    style: AppTextStyles.caption.copyWith(fontSize: 11),
+                  ),
                 ],
+                const Spacer(),
+                if (plan.savingsNote != null && cycle == BillingCycle.annual)
+                  Text(
+                    plan.savingsNote!,
+                    style: AppTextStyles.caption.copyWith(
+                      color: AppColors.strongBuy,
+                      fontSize: 10.5,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  )
+                // Founding Member's billingNote ("/year") only makes sense
+                // paired with the annual price — the monthly price already
+                // reads "$16/mo" on its own, so show nothing extra here.
+                else if (plan.name != 'Founding Member' ||
+                    cycle == BillingCycle.annual)
+                  Text(
+                    plan.billingNote,
+                    style: AppTextStyles.caption.copyWith(fontSize: 11),
+                  ),
+              ],
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            for (final feature in plan.features)
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 2),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.check_circle_rounded,
+                      size: 14,
+                      color: plan.highlighted
+                          ? AppColors.accentBlue
+                          : AppColors.strongBuy,
+                    ),
+                    const SizedBox(width: 6),
+                    Expanded(
+                      child: Text(
+                        feature,
+                        style: AppTextStyles.caption.copyWith(
+                          fontSize: 12,
+                          color: AppColors.textPrimary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// The checkout CTA under the plan list. Reflects the plan selected above
+/// and carries it through to the checkout screen.
+class _CheckoutButton extends StatelessWidget {
+  const _CheckoutButton({required this.plan, required this.cycle});
+
+  final SubscriptionPlan? plan;
+  final BillingCycle cycle;
+
+  @override
+  Widget build(BuildContext context) {
+    final selectedPlan = plan;
+    final isFreePlan =
+        selectedPlan == null || selectedPlan.amountUsdFor(cycle) == 0;
+    final planName = selectedPlan?.name ?? 'Free';
+
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {
+          if (selectedPlan == null || isFreePlan) {
+            AppFeedback.showSnackBar(
+              context,
+              'You are already on the Free plan.',
+            );
+            return;
+          }
+          Navigator.of(context).pushNamed(
+            AppRoutes.checkout,
+            arguments: CheckoutArgs(plan: selectedPlan, cycle: cycle),
+          );
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.accentBlue,
+          padding: const EdgeInsets.symmetric(vertical: AppSpacing.md),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(AppSpacing.radiusMd),
+          ),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              isFreePlan ? 'Continue with Free' : 'Start Free Trial',
+              style: AppTextStyles.button.copyWith(fontSize: 15),
+            ),
+            Text(
+              isFreePlan
+                  ? 'No payment details required'
+                  : '7-day free trial • Cancel anytime • $planName',
+              style: AppTextStyles.caption.copyWith(
+                color: Colors.white.withValues(alpha: 0.85),
+                fontSize: 11,
               ),
             ),
-        ],
+          ],
+        ),
       ),
     );
   }

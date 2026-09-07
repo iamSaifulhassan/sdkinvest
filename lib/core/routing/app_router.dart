@@ -14,6 +14,13 @@ import '../../presentation/pages/auth/login_page.dart';
 import '../../presentation/pages/auth/signup_page.dart';
 import '../../presentation/pages/search/search_page.dart';
 import '../../presentation/pages/profile/profile_page.dart';
+import '../../presentation/pages/legal/legal_document_page.dart';
+import '../../data/legal/disclaimer_content.dart';
+import '../../data/legal/terms_content.dart';
+import '../../data/legal/privacy_policy_content.dart';
+import '../../presentation/pages/support/faq_page.dart';
+import '../../presentation/pages/support/contact_support_page.dart';
+import '../../presentation/pages/checkout/checkout_page.dart';
 import 'app_routes.dart';
 
 class AppRouter {
@@ -52,6 +59,35 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const SearchPage());
       case AppRoutes.profile:
         return MaterialPageRoute(builder: (_) => const ProfilePage());
+      case AppRoutes.disclaimer:
+        return MaterialPageRoute(
+          builder: (_) =>
+              const LegalDocumentPage(document: kDisclaimerDocument),
+        );
+      case AppRoutes.terms:
+        return MaterialPageRoute(
+          builder: (_) => const LegalDocumentPage(document: kTermsDocument),
+        );
+      case AppRoutes.privacyPolicy:
+        return MaterialPageRoute(
+          builder: (_) =>
+              const LegalDocumentPage(document: kPrivacyPolicyDocument),
+        );
+      case AppRoutes.faq:
+        return MaterialPageRoute(builder: (_) => const FaqPage());
+      case AppRoutes.contactSupport:
+        return MaterialPageRoute(builder: (_) => const ContactSupportPage());
+      case AppRoutes.checkout:
+        // The only route taking arguments — the plan and cycle the user
+        // picked on the Subscription screen.
+        final args = settings.arguments;
+        if (args is! CheckoutArgs) {
+          return MaterialPageRoute(builder: (_) => const SubscriptionPage());
+        }
+        return MaterialPageRoute(
+          builder: (_) => CheckoutPage(args: args),
+          fullscreenDialog: true,
+        );
       default:
         return MaterialPageRoute(builder: (_) => const HomePage());
     }

@@ -4,20 +4,52 @@
     {
       "name": "sdkinvest-web",
       "runtimeExecutable": "flutter",
-      "runtimeArgs": ["run", "-d", "chrome", "--web-port", "8790"],
+      "runtimeArgs": [
+        "run",
+        "-d",
+        "chrome",
+        "--web-port",
+        "8790"
+      ],
       "port": 8790
     },
     {
       "name": "sdkinvest-web-2",
       "runtimeExecutable": "flutter",
-      "runtimeArgs": ["run", "-d", "chrome", "--web-port", "8791"],
+      "runtimeArgs": [
+        "run",
+        "-d",
+        "chrome",
+        "--web-port",
+        "8791"
+      ],
       "port": 8791
     },
     {
       "name": "sdkinvest-web-3",
       "runtimeExecutable": "flutter",
-      "runtimeArgs": ["run", "-d", "chrome", "--web-port", "8792"],
+      "runtimeArgs": [
+        "run",
+        "-d",
+        "chrome",
+        "--web-port",
+        "8792"
+      ],
       "port": 8792
+    },
+    {
+      "name": "sdkinvest-webserver",
+      "runtimeExecutable": "flutter",
+      "runtimeArgs": [
+        "run",
+        "-d",
+        "web-server",
+        "--web-port",
+        "8793",
+        "--web-hostname",
+        "localhost"
+      ],
+      "port": 8793
     }
   ]
 }

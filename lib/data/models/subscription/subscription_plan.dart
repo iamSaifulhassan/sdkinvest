@@ -8,6 +8,8 @@ class SubscriptionPlan extends Equatable {
     required this.name,
     required this.monthlyPrice,
     required this.annualPrice,
+    required this.monthlyAmountUsd,
+    required this.annualAmountUsd,
     required this.billingNote,
     required this.features,
     this.badgeLabel,
@@ -18,6 +20,16 @@ class SubscriptionPlan extends Equatable {
   final String name;
   final String monthlyPrice;
   final String annualPrice;
+
+  /// The same figures [monthlyPrice]/[annualPrice] display, as numbers the
+  /// checkout screen can convert between currencies. Display strings stay
+  /// authoritative for what the user sees on the plan cards; these exist so
+  /// the amount doesn't have to be parsed back out of them.
+  final double monthlyAmountUsd;
+  final double annualAmountUsd;
+
+  double amountUsdFor(BillingCycle cycle) =>
+      cycle == BillingCycle.annual ? annualAmountUsd : monthlyAmountUsd;
 
   /// Small trailing note under the price, e.g. "Billed monthly" or "Get started".
   final String billingNote;
@@ -37,6 +49,8 @@ class SubscriptionPlan extends Equatable {
     name,
     monthlyPrice,
     annualPrice,
+    monthlyAmountUsd,
+    annualAmountUsd,
     billingNote,
     features,
     badgeLabel,

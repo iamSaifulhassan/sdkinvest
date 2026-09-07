@@ -7,23 +7,39 @@ class SubscriptionState extends Equatable {
   const SubscriptionState({
     this.cycle = BillingCycle.annual,
     this.plans = const [],
+    this.selectedPlanName = 'Founding Member',
   });
 
   final BillingCycle cycle;
   final List<SubscriptionPlan> plans;
 
+  /// Name of the plan card the user has tapped. Plans have no id of their
+  /// own and their names are unique, so the name is the identity here.
+  final String selectedPlanName;
+
+  /// The tapped plan, or null if [selectedPlanName] matches nothing (only
+  /// possible if the seeded plan list changes without this default).
+  SubscriptionPlan? get selectedPlan {
+    for (final plan in plans) {
+      if (plan.name == selectedPlanName) return plan;
+    }
+    return null;
+  }
+
   SubscriptionState copyWith({
     BillingCycle? cycle,
     List<SubscriptionPlan>? plans,
+    String? selectedPlanName,
   }) {
     return SubscriptionState(
       cycle: cycle ?? this.cycle,
       plans: plans ?? this.plans,
+      selectedPlanName: selectedPlanName ?? this.selectedPlanName,
     );
   }
 
   @override
-  List<Object?> get props => [cycle, plans];
+  List<Object?> get props => [cycle, plans, selectedPlanName];
 }
 
 /// Drives the Subscription screen's billing-cycle toggle. Plan data is
@@ -38,6 +54,8 @@ class SubscriptionCubit extends Cubit<SubscriptionState> {
               name: 'Free',
               monthlyPrice: '\$0',
               annualPrice: '\$0',
+              monthlyAmountUsd: 0,
+              annualAmountUsd: 0,
               billingNote: 'Get started',
               features: [
                 'Real-time market data',
@@ -51,6 +69,8 @@ class SubscriptionCubit extends Cubit<SubscriptionState> {
               name: 'Basic',
               monthlyPrice: '\$19',
               annualPrice: '\$16',
+              monthlyAmountUsd: 19,
+              annualAmountUsd: 16,
               billingNote: 'Billed monthly',
               features: [
                 'Everything in Free',
@@ -64,6 +84,8 @@ class SubscriptionCubit extends Cubit<SubscriptionState> {
               name: 'Founding Member',
               monthlyPrice: '\$16/mo',
               annualPrice: '\$149',
+              monthlyAmountUsd: 16,
+              annualAmountUsd: 149,
               billingNote: '/year',
               badgeLabel: 'RECOMMENDED',
               highlighted: true,
@@ -81,4 +103,7 @@ class SubscriptionCubit extends Cubit<SubscriptionState> {
       );
 
   void setCycle(BillingCycle cycle) => emit(state.copyWith(cycle: cycle));
+
+  void selectPlan(String planName) =>
+      emit(state.copyWith(selectedPlanName: planName));
 }

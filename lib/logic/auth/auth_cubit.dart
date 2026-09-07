@@ -41,5 +41,13 @@ class AuthCubit extends Cubit<AuthState> {
   void signedIn(AuthUser user) =>
       emit(AuthState(status: AuthStatus.authenticated, user: user));
 
+  /// Applies edits made on the Profile screen to the live session so every
+  /// screen reading `state.user` picks up the new name/email. Ignored when
+  /// no one is signed in — there'd be no session to update.
+  void profileUpdated(AuthUser user) {
+    if (state.status != AuthStatus.authenticated) return;
+    emit(AuthState(status: AuthStatus.authenticated, user: user));
+  }
+
   void signOut() => emit(const AuthState(status: AuthStatus.unauthenticated));
 }
